@@ -3,51 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Завод Механик №762</title>
+    <title>Завод Механик №762 | Труженики тыла</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.5; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        .header { background-color: rgba(30,35,25,0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 10; }
-        .header-inner { display: flex; justify-content: flex-end; align-items: center; }
-        .burger-menu { position: relative; }
-        .burger-icon { font-size: 2rem; cursor: pointer; color: #f3efde; transition: 0.2s; user-select: none; }
-        .burger-icon:hover { color: #ffefb9; }
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; background-color: #2f3e2e; border: 1px solid #c1a259; min-width: 220px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .dropdown-menu a { display: block; color: #fef5e6; text-decoration: none; padding: 10px 16px; font-size: 0.9rem; transition: 0.2s; border-bottom: 1px solid #4a5a3e; }
-        .dropdown-menu a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        .dropdown-menu.show { display: block; }
+        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.45; display: flex; flex-direction: column; min-height: 100vh; }
         .hero-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('механик.webp'); background-size: cover; background-position: center; z-index: -2; }
-        .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
-        .factory-title { text-align: center; margin: 1rem 0 0; position: relative; z-index: 2; }
-        .factory-title h1 { font-size: 2rem; font-family: 'Georgia', serif; color: #f3de8a; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); display: inline-block; padding: 0.5rem 2rem; border-radius: 40px; backdrop-filter: blur(4px); }
-        .main-content { position: relative; z-index: 2; min-height: calc(100vh - 72px); display: flex; align-items: stretch; padding: 8rem 0 20rem 0; }
-        .history-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 0 16px 16px 0; padding: 1.8rem; margin-right: 1.5rem; }
-        .accordion-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 16px 0 0 16px; padding: 1.8rem; margin-left: 1.5rem; }
-        .history-title { font-size: 1.3rem; font-weight: 700; color: #e6d6a8; margin-bottom: 1rem; border-bottom: 1px solid rgba(200,180,120,0.5); display: inline-block; padding-bottom: 4px; }
-        .history-item { margin-bottom: 1.5rem; }
-        .history-year { font-size: 1rem; font-weight: 700; color: #f3de8a; margin-bottom: 0.3rem; }
-        .history-text { font-size: 0.95rem; line-height: 1.45; color: #f0ede8; }
-        .accordion-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #e6d6a8; text-align: center; font-family: 'Georgia', serif; }
-        .accordion-item { border: 1px solid rgba(200,185,130,0.4); margin-bottom: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; }
-        .accordion-header { background-color: rgba(0,0,0,0.4); padding: 1rem 1.2rem; cursor: pointer; font-weight: 600; font-size: 1rem; color: #f3de8a; transition: all 0.2s; font-family: 'Georgia', serif; }
-        .accordion-header:hover { background-color: rgba(0,0,0,0.6); color: #ffefb0; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background-color: rgba(0,0,0,0.3); }
-        .accordion-content-inner { padding: 1.2rem; font-size: 0.92rem; line-height: 1.5; color: #f0ede8; }
-        .stat-badge { display: inline-block; background: #c1a259; color: #1e2a1a; padding: 2px 8px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-right: 6px; }
-        footer { position: relative; z-index: 2; background: rgba(30,35,25,0.85); backdrop-filter: blur(4px); padding: 1.2rem 0; text-align: center; border-top: 1px solid #c1a259; margin-top: 2rem; }
-        @media (max-width: 900px) { .main-content { flex-direction: column; gap: 1.5rem; } .history-column, .accordion-column { margin: 0; border-radius: 16px; } }
+        .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: -1; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; flex: 1; }
+        
+        .header { background-color: rgba(30, 35, 25, 0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 600; font-family: 'Georgia', serif; color: #f3efde; }
+        .logo-area p { font-size: 0.8rem; color: #e6dbba; font-style: italic; }
+        .nav-menu { display: flex; gap: 1.2rem; list-style: none; flex-wrap: wrap; margin: 0; padding: 0; }
+        .nav-menu > li { position: relative; }
+        @media (min-width: 901px) {
+            .nav-menu > li { position: relative; }
+        }
+        .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
+        
+        @media (min-width: 901px) {
+            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
+            .nav-menu > li:hover .dropdown-content { display: block; }
+            .nav-menu > li::after { content: ''; position: absolute; top: 90%; left: 0; width: 100%; height: 20px; background: transparent; z-index: 1001; }
+            .dropdown-content:hover { display: block; }
+        }
+        
+        @media (max-width: 900px) {
+            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 200px; border: 1px solid #c1a259; z-index: 1000; }
+            .dropdown-content.show { display: block; }
+            .nav-menu > li { position: relative; }
+        }
+        
+        .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
+        .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
+        
+        .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #f3de8a; font-family: 'Georgia', serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .subtitle { margin-bottom: 1.5rem; font-size: 1rem; color: #e6dbba; padding-left: 1rem; }
+        
+        .factory-sections { display: flex; flex-wrap: wrap; gap: 2rem; margin: 8rem 0 2rem 0; }
+        .section-card { flex: 1; min-width: 280px; background: rgba(25, 30, 22, 0.7); backdrop-filter: blur(6px); border: 1px solid rgba(200, 185, 130, 0.5); border-radius: 12px; padding: 1.2rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #f3de8a; font-family: 'Georgia', serif; margin-bottom: 1rem; padding-left: 0.8rem; }
+        
+        .accordion-item { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(200, 185, 130, 0.3); }
+        .accordion-header { background: rgba(0, 0, 0, 0.4); padding: 0.7rem 0.8rem; cursor: pointer; font-weight: 600; font-size: 0.95rem; color: #ffefb0; transition: 0.2s; border-radius: 6px; margin-bottom: 0.2rem; }
+        .accordion-header:hover { background: rgba(0, 0, 0, 0.6); color: #fff4d0; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background: rgba(0, 0, 0, 0.3); border-radius: 6px; margin-bottom: 0.3rem; }
+        .accordion-content-inner { padding: 0.8rem; font-size: 0.9rem; line-height: 1.4; color: #f0ede8; }
+        .accordion-content-inner ul { margin-left: 1.2rem; margin-top: 0.3rem; }
+        .accordion-content-inner li { margin-bottom: 0.3rem; }
+        .stat-number { font-weight: 700; color: #f3de8a; }
+        
+        footer { background: rgba(30, 35, 25, 0.85); backdrop-filter: blur(4px); padding: 1.5rem 0; text-align: center; margin-top: auto; border-top: 1px solid #c1a259; }
+        @media (max-width: 780px) { .factory-sections { flex-direction: column; } .nav-menu { gap: 0.8rem; } }
     </style>
 </head>
 <body>
 <div class="hero-overlay"></div>
-<header class="header"><div class="container header-inner"><div class="burger-menu"><div class="burger-icon">☰</div><div class="dropdown-menu"><a href="index.html">Главная</a><a href="region-tyumen.html">Тюменская область</a><a href="region-ural.html">Урал</a><a href="region-povolzhye.html">Поволжье</a><a href="shipyard.html">Судостроительный завод</a><a href="accumulator.html">Аккумуляторный завод</a><a href="fanerniy.html">Фанерный комбинат</a><a href="krasny_oktyabr.html">Красный Октябрь</a><a href="heroes.html">Труженики</a><a href="team.html">Команда</a><a href="conclusion.html">Заключение</a></div></div></div></header>
-<main><div class="container"><div class="factory-title"><h1>Тюменский станкостроительный завод «Механик» № 762</h1></div>
-<div class="main-content">
-    <div class="history-column"><div class="history-item"><div class="history-title">История завода</div><div class="history-year">1899</div><div class="history-text">Купец А.Г. Закоплян открыл литейную мастерскую. Позже её приобрёл Н.Д. Машаров, учредив товарищество «Машаров и К».</div></div><div class="history-item"><div class="history-year">К 1901</div><div class="history-text">Работали литейный, механический и гвоздёрный цеха. Выпуск: чугунная посуда, печные принадлежности, гвозди, молотилки, веялки.</div></div><div class="history-item"><div class="history-year">1908</div><div class="history-text">Внедрение паровых машин, первый в Тюмени переход на электромеханический привод.</div></div><div class="history-item"><div class="history-year">После революции</div><div class="history-text">Завод национализирован, переименован в «Механик», специализация — деревообрабатывающие станки.</div></div><div class="history-item"><div class="history-year">1929</div><div class="history-text">Первая партия шпалорезных станков (5 шт.), затем 45 станков за год.</div></div><div class="history-item"><div class="history-year">1930</div><div class="history-text">Выпуск 420 станков. Со второй половины 1930-го завод стал станкостроительным.</div></div></div>
-    <div class="accordion-column"><div class="accordion-title">Великая Отечественная война и послевоенный период</div><div class="accordion"><div class="accordion-item"><div class="accordion-header">1941–1945</div><div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-badge">1941</span> Перепланировка цеха для стального литья. Изготовлено 4500 корпусов мин и 3000 корпусов артиллерийских снарядов.</p><p><span class="stat-badge">1942</span> Завод стал военным, название «Завод №762 Наркомата миномётного вооружения».</p><p><span class="stat-badge">1943</span> Выпуск первых 2500 мин типа «О1».</p><p><span class="stat-badge">1945</span> Изготовление двух фуговальных станков для атомного проекта Курчатова.</p></div></div></div><div class="accordion-item"><div class="accordion-header">Послевоенный период</div><div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-badge">1945</span> Возврат к мирному производству станков и лебёдок.</p><p><span class="stat-badge">1948</span> Переход на самоокупаемость.</p><p><span class="stat-badge">1950-е</span> Освоение круглопильных и прирезных станков.</p><p><span class="stat-badge">1960-е</span> Выпуск многопильных станков, старт экспорта.</p><p><span class="stat-badge">1966</span> Переименован в Тюменский станкостроительный завод.</p><p><span class="stat-badge">1994</span> Акционирование, ОАО «Тюменский станкостроительный завод».</p></div></div></div></div></div>
-</div></div></main>
-<footer><div class="container"></div></footer>
-<script>const burgerIcon = document.querySelector('.burger-icon'), dropdownMenu = document.querySelector('.dropdown-menu'); burgerIcon.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('show'); }); document.addEventListener('click', e => { if (!burgerIcon.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('show'); }); document.querySelectorAll('.accordion-header').forEach(h=>{h.addEventListener('click',function(){let c=this.nextElementSibling,open=c.style.maxHeight&&c.style.maxHeight!=='0px';document.querySelectorAll('.accordion-content').forEach(c=>c.style.maxHeight=null);if(!open)c.style.maxHeight=c.scrollHeight+'px';});});</script>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area"></div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-ural.html">Урал</a><a href="region-tyumen.html">Тюменская область</a></div></li>
+            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <h1 class="page-title">Тюменский станкостроительный завод «Механик» № 762</h1>
+        
+        <div class="factory-sections">
+            <!-- ДОВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Довоенный период</div>
+                <div class="accordion-item"><div class="accordion-header">1899 — основание</div><div class="accordion-content"><div class="accordion-content-inner"><p>Купец А.Г. Закоплян открыл литейную мастерскую. Позже её приобрёл Н.Д. Машаров, учредив товарищество «Машаров и К».</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">К 1901 году</div><div class="accordion-content"><div class="accordion-content-inner"><p>Работали литейный, механический и гвоздёрный цеха. Выпуск: чугунная посуда, печные принадлежности, гвозди, молотилки, веялки.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1908 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Внедрение паровых машин, первый в Тюмени переход на электромеханический привод.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">После революции</div><div class="accordion-content"><div class="accordion-content-inner"><p>Завод национализирован, переименован в «Механик», специализация — деревообрабатывающие станки.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1929–1930</div><div class="accordion-content"><div class="accordion-content-inner"><p>Первая партия шпалорезных станков (5 шт.), затем 45 станков за год. В 1930 выпущено 420 станков. Со второй половины 1930 года завод стал станкостроительным.</p></div></div></div>
+            </div>
+            
+            <!-- ВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Военный период</div>
+                <div class="accordion-item"><div class="accordion-header">1941 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Перепланировка цеха для стального литья. Изготовлено 4500 корпусов мин и 3000 корпусов артиллерийских снарядов.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1942 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Завод стал военным, название «Завод №762 Наркомата миномётного вооружения».</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1943 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Выпуск первых 2500 мин типа «О1» (химические мины калибра 120 мм для дымовых завес).</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1945 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Изготовление двух фуговальных станков для атомного проекта Курчатова (Лаборатория №2 АН СССР).</p></div></div></div>
+            </div>
+            
+            <!-- ПОСЛЕВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Послевоенный период</div>
+                <div class="accordion-item"><div class="accordion-header">1945–1960-е</div><div class="accordion-content"><div class="accordion-content-inner"><p>Возврат к мирному производству станков и лебёдок. 1948 — переход на самоокупаемость. В 1950-е освоены круглопильные и прирезные станки. В 1960-е — выпуск многопильных и торцово-балансирных станков, старт экспорта.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">12 мая 1966</div><div class="accordion-content"><div class="accordion-content-inner"><p>Переименован в Тюменский станкостроительный завод, улица — в улицу Станкостроителей.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1994</div><div class="accordion-content"><div class="accordion-content-inner"><p>Акционирование, ОАО «Тюменский станкостроительный завод».</p></div></div></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer><div class="container"></footer>
+
+<script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            const parentCard = this.closest('.section-card');
+            if (parentCard) {
+                parentCard.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            }
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+    
+    if ('ontouchstart' in window || window.innerWidth <= 900) {
+        const dropdownTriggers = document.querySelectorAll('.nav-menu > li');
+        dropdownTriggers.forEach(trigger => {
+            const link = trigger.querySelector('a');
+            const dropdown = trigger.querySelector('.dropdown-content');
+            if (dropdown) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
+                    dropdown.classList.add('show');
+                });
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-menu')) {
+                document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
+            }
+        });
+    }
+</script>
 </body>
 </html>

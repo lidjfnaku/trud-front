@@ -5,45 +5,487 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Урал | Труженики тыла</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .header { background-color: #2f3e2e; padding: 1rem 0; border-bottom: 3px solid #c1a259; }
-        .header-inner { display: flex; justify-content: flex-end; align-items: center; }
-        .burger-menu { position: relative; }
-        .burger-icon { font-size: 2rem; cursor: pointer; color: #f3efde; transition: 0.2s; user-select: none; }
-        .burger-icon:hover { color: #ffefb9; }
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; background-color: #2f3e2e; border: 1px solid #c1a259; min-width: 220px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .dropdown-menu a { display: block; color: #fef5e6; text-decoration: none; padding: 10px 16px; font-size: 0.9rem; transition: 0.2s; border-bottom: 1px solid #4a5a3e; }
-        .dropdown-menu a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        .dropdown-menu.show { display: block; }
-        .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #2c3a2a; font-family: 'Georgia', serif; }
-        .subtitle { margin-bottom: 1.5rem; font-size: 1rem; color: #4a4238; }
-        .section-block { margin: 2rem 0; }
-        .section-subtitle { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.2rem; color: #3a4b30; border-bottom: 2px solid #e2d5c0; padding-bottom: 0.4rem; }
-        .accordion-item { border: 1px solid #e2d7c8; margin-bottom: 0.8rem; background: #fffbf2; }
-        .accordion-header { background-color: #f4efe5; padding: 1rem 1.5rem; cursor: pointer; font-weight: 600; font-size: 1.1rem; color: #3a4b30; transition: all 0.2s; font-family: 'Georgia', serif; }
-        .accordion-header:hover { background-color: #e8e0d0; color: #5c431f; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #fffcf7; }
-        .accordion-content-inner { padding: 1rem 1.5rem 1.2rem 1.5rem; font-size: 0.96rem; line-height: 1.5; color: #2a2925; }
-        .stats-table { width: 100%; border-collapse: collapse; background: #fffcf5; border: 1px solid #dad0bc; margin: 1.5rem 0; }
-        .stats-table th, .stats-table td { border: 1px solid #dad0bc; padding: 12px 14px; vertical-align: top; text-align: left; }
-        .stats-table th { background-color: #e6dccb; font-weight: 600; color: #2e3b24; width: 40%; }
-        .indicators-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; }
-        .indicator-card { flex: 1; min-width: 170px; background: #f4efe5; border: 1px solid #dad0bc; padding: 1rem; text-align: center; }
-        .indicator-number { font-size: 1.5rem; font-weight: 700; color: #5c431f; }
-        .indicator-label { font-size: 0.8rem; color: #4a4238; margin-top: 5px; }
-        footer { background: #e2dacb; padding: 2rem 0; text-align: center; margin-top: 3rem; }
-        @media (max-width: 780px) { .page-title { font-size: 1.6rem; } .indicators-grid { flex-direction: column; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif;
+            background-color: #fefaf5;
+            color: #2c2b28;
+            line-height: 1.45;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- НОВАЯ ШАПКА (ГОРИЗОНТАЛЬНОЕ МЕНЮ С ВЫПАДАЮЩИМИ СПИСКАМИ) --- */
+        .header {
+            background-color: #2f3e2e;
+            padding: 1rem 0;
+            border-bottom: 3px solid #c1a259;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            color: #f3efde;
+        }
+
+        .logo-area p {
+            font-size: 0.8rem;
+            color: #e6dbba;
+            font-style: italic;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu > li {
+            position: relative;
+            list-style: none;
+        }
+
+        .nav-menu > li > a {
+            display: block;
+            color: #fef5e6;
+            text-decoration: none;
+            padding: 0.5rem 0.2rem;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-menu > li > a:hover,
+        .nav-menu > li:hover > a {
+            border-bottom-color: #e6c87a;
+            color: #ffefb9;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #2f3e2e;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 1px solid #c1a259;
+            border-top: none;
+            z-index: 100;
+        }
+
+        .dropdown-content a {
+            color: #fef5e6;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #4a5a3e;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #4a5a3e;
+            color: #ffefb9;
+        }
+
+        .nav-menu > li:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- ОСНОВНОЙ КОНТЕНТ --- */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            color: #2c3a2a;
+            font-family: 'Georgia', serif;
+        }
+
+        .subtitle {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #4a4238;
+        }
+
+        .section-block {
+            margin: 2rem 0;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            color: #3a4b30;
+            border-bottom: 2px solid #e2d5c0;
+            padding-bottom: 0.4rem;
+        }
+
+        .accordion-item {
+            border: 1px solid #e2d7c8;
+            margin-bottom: 0.8rem;
+            background: #fffbf2;
+        }
+
+        .accordion-header {
+            background-color: #f4efe5;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #3a4b30;
+            transition: all 0.2s;
+            font-family: 'Georgia', serif;
+        }
+
+        .accordion-header:hover {
+            background-color: #e8e0d0;
+            color: #5c431f;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fffcf7;
+        }
+
+        .accordion-content-inner {
+            padding: 1rem 1.5rem 1.2rem 1.5rem;
+            font-size: 0.96rem;
+            line-height: 1.5;
+            color: #2a2925;
+        }
+
+        .accordion-content-inner ul {
+            margin-left: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .accordion-content-inner li {
+            margin-bottom: 0.3rem;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fffcf5;
+            border: 1px solid #dad0bc;
+            margin: 1.5rem 0;
+        }
+
+        .stats-table th,
+        .stats-table td {
+            border: 1px solid #dad0bc;
+            padding: 12px 14px;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .stats-table th {
+            background-color: #e6dccb;
+            font-weight: 600;
+            color: #2e3b24;
+            width: 40%;
+        }
+
+        .indicators-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .indicator-card {
+            flex: 1;
+            min-width: 170px;
+            background: #f4efe5;
+            border: 1px solid #dad0bc;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .indicator-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #5c431f;
+        }
+
+        .indicator-label {
+            font-size: 0.8rem;
+            color: #4a4238;
+            margin-top: 5px;
+        }
+
+        footer {
+            background: #e2dacb;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 900px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .logo-area {
+                text-align: center;
+            }
+            .nav-menu {
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            .nav-menu > li > a {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.2rem;
+            }
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                border: none;
+                margin-top: 0.3rem;
+                box-shadow: none;
+            }
+            .dropdown-content a {
+                padding-left: 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .page-title {
+                font-size: 1.6rem;
+            }
+            .indicators-grid {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-<header class="header"><div class="container header-inner"><div class="burger-menu"><div class="burger-icon">☰</div><div class="dropdown-menu"><a href="index.html">Главная</a><a href="region-tyumen.html">Тюменская область</a><a href="region-povolzhye.html">Поволжье</a><a href="shipyard.html">Судостроительный завод</a><a href="mehanik.html">Завод Механик</a><a href="accumulator.html">Аккумуляторный завод</a><a href="fanerniy.html">Фанерный комбинат</a><a href="krasny_oktyabr.html">Красный Октябрь</a><a href="heroes.html">Труженики</a><a href="team.html">Команда</a><a href="conclusion.html">Заключение</a></div></div></div></header>
-<main><div class="container"><h1 class="page-title">Статистика предприятий на Урале</h1><div class="subtitle">Свердловская, Челябинская и другие области</div>
-<div class="section-block"><h2 class="section-subtitle">Крупнейшие предприятия</h2><div class="accordion"><div class="accordion-item"><div class="accordion-header">Уральский танковый завод</div><div class="accordion-content"><div class="accordion-content-inner"><p>Создан на базе Харьковского завода им. Коминтерна и Мариупольского завода. Ключевой производитель танков Т‑34 и других боевых машин.</p></div></div></div><div class="accordion-item"><div class="accordion-header">Уралмашзавод</div><div class="accordion-content"><div class="accordion-content-inner"><p>Работал с частью Ижорского завода. Выпускал корпуса танков, артиллерийские установки, броневые детали.</p></div></div></div><div class="accordion-item"><div class="accordion-header">Свердловский завод РТИ</div><div class="accordion-content"><div class="accordion-content-inner"><p>Создан на базе трёх заводов: «Каучук», «Красный треугольник», «Красный резинщик». Единственный поставщик резиновых изделий.</p></div></div></div><div class="accordion-item"><div class="accordion-header">Уралхиммаш</div><div class="accordion-content"><div class="accordion-content-inner"><p>Создан на базе киевского завода «Большевик». Производил миномёты, оборудование для алюминиевого завода.</p></div></div></div></div></div>
-<div class="section-block"><h2 class="section-subtitle">Ключевые показатели</h2><table class="stats-table"><tr><th>Доля в общесоюзном военном производстве</th><td>до 40%</td></tr><tr><th>Рост выпуска промышленной продукции</th><td>в 3,6 раза</td></tr><tr><th>Рост оборонной промышленности</th><td>в 6 раз</td></tr><tr><th>Металлургия</th><td>2/3 металлов в СССР</td></tr><tr><th>Добыча угля</th><td>рост в 22 раза</td></tr><tr><th>Машиностроение</th><td>более 1/3 предприятий отрасли</td></tr></table></div>
-<div class="section-block"><h2 class="section-subtitle">Основные цифры</h2><div class="indicators-grid"><div class="indicator-card"><div class="indicator-number">40%</div><div class="indicator-label">доля в военном производстве</div></div><div class="indicator-card"><div class="indicator-number">3,6</div><div class="indicator-label">рост промпроизводства</div></div><div class="indicator-card"><div class="indicator-number">2/3</div><div class="indicator-label">металла в СССР</div></div><div class="indicator-card"><div class="indicator-number">22</div><div class="indicator-label">рост добычи угля (раз)</div></div></div></div></div></main>
-<footer><div class="container"></div></footer>
-<script>const burgerIcon = document.querySelector('.burger-icon'), dropdownMenu = document.querySelector('.dropdown-menu'); burgerIcon.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('show'); }); document.addEventListener('click', e => { if (!burgerIcon.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('show'); }); document.querySelectorAll('.accordion-header').forEach(h=>{h.addEventListener('click',function(){let c=this.nextElementSibling,open=c.style.maxHeight&&c.style.maxHeight!=='0px';document.querySelectorAll('.accordion-content').forEach(c=>c.style.maxHeight=null);if(!open)c.style.maxHeight=c.scrollHeight+'px';});});</script>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area">
+            
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-ural.html">Урал</a>
+                   
+                    <a href="region-tyumen.html">Тюменская область</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Предприятия</a>
+                <div class="dropdown-content">
+                    <a href="shipyard.html">Судостроительный завод</a>
+                    <a href="mehanik.html">Завод Механик</a>
+                    <a href="accumulator.html">Аккумуляторный завод</a>
+                    <a href="fanerniy.html">Фанерный комбинат</a>
+                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
+                </div>
+            </li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <h1 class="page-title">Статистика предприятий на Урале</h1>
+
+        <!-- Крупнейшие предприятия (обновлённый список) -->
+        <div class="section-block">
+            <h2 class="section-subtitle">Крупнейшие предприятия</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">Челябинский тракторный завод</div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>18 тысяч танков и самоходных артиллерийских установок (САУ)</li>
+                                <li>48,5 тысячи танковых дизельмоторов</li>
+                                <li>85 тысяч комплектов топливной аппаратуры</li>
+                                <li>17,5–17,7 миллиона заготовок боеприпасов</li>
+                                <li>13 типов новых танков и САУ, 6 типов танковых дизельмоторов (включая модификации В-2)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Челябинский металлургический завод</div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Стали (свыше 50 марок за 1942–1945 гг.):</strong></p>
+                            <ul>
+                                <li>высококачественная электросталь</li>
+                                <li>шарикоподшипниковая сталь</li>
+                                <li>углеродистая сталь</li>
+                                <li>легированная сталь</li>
+                                <li>жаропрочная сталь</li>
+                            </ul>
+                            <p><strong>Металлопрокат:</strong> профили диаметром от 30 до 180 мм, 105 тысяч тонн проката за годы войны</p>
+                            <p><strong>Чугун:</strong> 300 тысяч тонн чугуна за годы войны</p>
+                            <p><strong>Сталь:</strong> 45 тысяч тонн стали за годы войны</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Уральский танковый завод</div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Танки Т‑34 — 25 914 боевых машин (почти половина от общего выпуска Т‑34 в СССР)</li>
+                                <li>Бронекорпуса самолётов Ил‑2 — 3 882 шт.</li>
+                                <li>Корпуса авиабомб — 2 268 236 шт.</li>
+                                <li>Комплекты снарядов М‑13 и направляющих для «Катюш» — 442 446 шт.</li>
+                                <li>Артиллерийские передки для пушек и гаубиц — 63 000 шт.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Уралмашзавод</div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Бронекорпуса (всего свыше 19 000 шт.):</strong></p>
+                            <ul>
+                                <li>бронекорпуса и башни танка КВ — 2 300 шт.</li>
+                                <li>бронекорпуса и башни ИС‑2 — 709 шт.</li>
+                                <li>бронекорпуса и башни ИС‑3 — 120 шт.</li>
+                                <li>бронекорпуса самоходок ИСУ‑152 — 3 854 шт.</li>
+                                <li>бронекорпуса и башни танка Т‑34 — 7 257 шт.</li>
+                                <li>бронекорпуса самоходок СУ‑122 — 653 шт.</li>
+                                <li>бронекорпуса самоходок СУ‑85 — 2 350 шт.</li>
+                                <li>бронекорпуса самоходок СУ‑100 — 1 982 шт.</li>
+                            </ul>
+                            <p><strong>Полевые и танковые орудия — 30 000 шт.</strong></p>
+                            <p><strong>Танки и САУ — 5 500 шт., в т.ч. танки Т‑34 — 706 шт.</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Свердловский завод РТИ</div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Катки для танков (крупногабаритные резинометаллические формовые изделия) — выпуск начат 16 декабря 1941 года</li>
+                                <li>Напорные рукава — выпуск начат в начале 1942 года</li>
+                                <li>Резиновые технические изделия для орудий, танков, самолётов</li>
+                                <li>Противогазные маски</li>
+                                <li>Клапаны для противогазов</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ключевые показатели (таблица) -->
+        <div class="section-block">
+            <h2 class="section-subtitle">Ключевые показатели</h2>
+            <table class="stats-table">
+                <tr><th>Доля в общесоюзном военном производстве</th><td>до 40%</td>
+                <tr><th>Рост выпуска промышленной продукции</th><td>в 3,6 раза</td>
+                <tr><th>Рост оборонной промышленности</th><td>в 6 раз</td>
+                <tr><th>Металлургия</th><td>2/3 металлов в СССР</td>
+                <tr><th>Добыча угля</th><td>рост в 22 раза</td>
+                <tr><th>Машиностроение</th><td>более 1/3 предприятий отрасли</td>
+            </table>
+        </div>
+
+        <!-- Основные цифры (карточки) -->
+        <div class="section-block">
+            <h2 class="section-subtitle">Основные цифры</h2>
+            <div class="indicators-grid">
+                <div class="indicator-card"><div class="indicator-number">40%</div><div class="indicator-label">доля в военном производстве</div></div>
+                <div class="indicator-card"><div class="indicator-number">3,6</div><div class="indicator-label">рост промпроизводства</div></div>
+                <div class="indicator-card"><div class="indicator-number">2/3</div><div class="indicator-label">металла в СССР</div></div>
+                <div class="indicator-card"><div class="indicator-number">22</div><div class="indicator-label">рост добычи угля (раз)</div></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+    </div>
+</footer>
+
+<script>
+    // Аккордеон
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Для сенсорных экранов: раскрытие dropdown по клику
+    if ('ontouchstart' in window) {
+        const dropdownParents = document.querySelectorAll('.nav-menu > li');
+        dropdownParents.forEach(parent => {
+            const link = parent.querySelector('a');
+            const dropdown = parent.querySelector('.dropdown-content');
+            if (dropdown) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isVisible = dropdown.style.display === 'block';
+                    document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+                    if (!isVisible) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+            }
+        });
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-menu')) {
+                document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+            }
+        });
+    }
+</script>
 </body>
 </html>

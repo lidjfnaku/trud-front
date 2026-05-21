@@ -6,59 +6,200 @@
     <title>Труженики тыла | Главная</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .header { background-color: #2f3e2e; padding: 1rem 0; border-bottom: 3px solid #c1a259; }
-        .header-inner { display: flex; justify-content: flex-end; align-items: center; }
-        .burger-menu { position: relative; }
-        .burger-icon { font-size: 2rem; cursor: pointer; color: #f3efde; transition: 0.2s; user-select: none; }
-        .burger-icon:hover { color: #ffefb9; }
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; background-color: #2f3e2e; border: 1px solid #c1a259; min-width: 220px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .dropdown-menu a { display: block; color: #fef5e6; text-decoration: none; padding: 10px 16px; font-size: 0.9rem; transition: 0.2s; border-bottom: 1px solid #4a5a3e; }
-        .dropdown-menu a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        .dropdown-menu.show { display: block; }
+        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; flex: 1; }
+        
+        /* ШАПКА */
+        .header { background-color: #2f3e2e; padding: 1rem 0; border-bottom: 3px solid #c1a259; position: relative; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 600; font-family: 'Georgia', serif; color: #f3efde; }
+        .logo-area p { font-size: 0.8rem; color: #e6dbba; font-style: italic; }
+        .nav-menu { display: flex; gap: 1.2rem; list-style: none; flex-wrap: wrap; margin: 0; padding: 0; }
+        .nav-menu > li { position: relative; }
+        .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
+        
+        @media (min-width: 901px) {
+            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
+            .nav-menu > li:hover .dropdown-content { display: block; }
+            .nav-menu > li::after { content: ''; position: absolute; top: 90%; left: 0; width: 100%; height: 20px; background: transparent; z-index: 1001; }
+            .dropdown-content:hover { display: block; }
+        }
+        
+        @media (max-width: 900px) {
+            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 200px; border: 1px solid #c1a259; z-index: 1000; }
+            .dropdown-content.show { display: block; }
+        }
+        .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
+        .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
+        
+        /* ГЛАВНЫЙ ЭКРАН */
         .hero-full-image { width: 100%; height: 90vh; min-height: 500px; background-size: cover; background-position: center 40%; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background-image: url('тыл.jpg'); }
         .hero-full-image::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20,20,15,0.45); z-index: 1; }
         .hero-text { position: relative; z-index: 2; color: white; max-width: 900px; padding: 1.5rem; }
         .hero-text .main-quote { font-size: 2.6rem; font-weight: 800; font-family: 'Georgia', serif; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); margin-bottom: 1rem; }
         .hero-text .title { font-size: 1.9rem; border-top: 2px solid rgba(255,215,140,0.9); display: inline-block; padding-top: 0.8rem; font-weight: 500; letter-spacing: 1px; }
-        .intro-block { background: #fffbf2; padding: 2rem; margin: 3rem 0 2rem; }
-        .war-text { margin-bottom: 2rem; font-size: 1.05rem; text-align: justify; }
-        .split-goals { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
-        .goal-card { flex: 1; min-width: 240px; background: #f6f2e8; padding: 1.5rem; border-left: 5px solid #9b7b4b; }
-        .goal-card h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; color: #3b4b2e; }
-        .goal-card ul { padding-left: 1.4rem; margin-top: 0.5rem; }
-        .goal-card li { margin: 0.6rem 0; }
-        .cards-section { margin: 3rem 0 2rem; }
-        .flex-cards { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
-        .region-card { flex: 1; min-width: 280px; background: #fffcf5; border: 1px solid #dad0bc; }
-        .card-header { background-color: #e6dccb; padding: 1.2rem; text-align: center; border-bottom: 2px solid #cabf9e; cursor: pointer; }
-        .card-header h3 { font-size: 1.7rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; transition: all 0.2s ease; }
-        .card-header:hover h3 { color: #c17b2e; font-size: 1.85rem; letter-spacing: 1px; }
-        .card-content { padding: 1.5rem; font-size: 0.98rem; line-height: 1.5; color: #2a2925; }
-        .plain-text { font-size: 1.1rem; line-height: 1.5; color: #2c3a2a; margin: 1.5rem 0; }
-        footer { background: #e2dacb; padding: 2rem 0; text-align: center; font-size: 0.85rem; color: #3e3a31; margin-top: 3rem; }
-        @media (max-width: 780px) { .hero-text .main-quote { font-size: 1.8rem; } .hero-text .title { font-size: 1.3rem; } .split-goals { flex-direction: column; } .region-card { min-width: 260px; } }
+        
+        /* ВСТУПИТЕЛЬНЫЙ ТЕКСТ */
+        .intro-block { background: #fffbf2; padding: 2rem; margin: 3rem 0 2rem; border: 1px solid #e2d7c8; }
+        .war-text { font-size: 1.05rem; line-height: 1.5; color: #2a2925; }
+        .war-text p { margin-bottom: 1rem; }
+        
+        /* АККОРДЕОН ДЛЯ ЦЕЛИ И ЗАДАЧ */
+        .goals-section { margin: 2rem 0; }
+        .goals-wrapper { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 0; }
+        .accordion-card { flex: 1; min-width: 280px; background: #f6f2e8; border: 1px solid #e2d7c8; overflow: hidden; }
+        .accordion-header-card { background-color: #e6dccb; padding: 1rem 1.5rem; cursor: pointer; font-weight: 700; font-size: 1.3rem; color: #3a4b30; font-family: 'Georgia', serif; transition: 0.2s; border-bottom: 1px solid #cabf9e; }
+        .accordion-header-card:hover { background-color: #ddd0b8; }
+        .accordion-content-card { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #fffcf7; }
+        .accordion-content-inner-card { padding: 1.2rem; font-size: 1rem; line-height: 1.5; color: #2a2925; }
+        .accordion-content-inner-card p { margin-bottom: 0.5rem; }
+        .accordion-content-inner-card ul { margin-left: 1.5rem; }
+        .accordion-content-inner-card li { margin-bottom: 0.3rem; }
+        
+        /* КАРТОЧКИ РЕГИОНОВ (ЗАГОЛОВОК НАД КАРТИНКОЙ, ТЕКСТ ПОД) */
+        .regions-section { margin: 3rem 0; }
+        .section-header { font-size: 1.8rem; font-weight: 600; color: #2c3a2a; font-family: 'Georgia', serif; margin-bottom: 1.5rem; }
+        .regions-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+        .region-card { flex: 1; min-width: 280px; background: #fffcf5; border: 1px solid #dad0bc; overflow: hidden; transition: 0.2s; cursor: pointer; }
+        .region-card:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.08); border-color: #c1a259; transform: translateY(-3px); }
+        .region-header { background-color: #e6dccb; padding: 0.8rem; text-align: center; border-bottom: 1px solid #cabf9e; }
+        .region-header h3 { font-size: 1.4rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; margin: 0; }
+        .region-card img { width: 100%; height: 280px; object-fit: cover; display: block; border-bottom: 1px solid #e2d7c8; }
+        .card-content { padding: 1rem; text-align: center; }
+        .card-text { font-size: 0.9rem; color: #4a4238; line-height: 1.4; }
+        
+        .final-text { margin: 2rem 0; padding: 1rem; background: #f6f2e8;  font-size: 1rem; line-height: 1.5; color: #2a2925; }
+        
+        footer { background: #e2dacb; padding: 1.5rem 0; text-align: center; margin-top: 2rem; }
+        
+        @media (max-width: 780px) {
+            .hero-text .main-quote { font-size: 1.8rem; }
+            .hero-text .title { font-size: 1.3rem; }
+            .goals-wrapper { flex-direction: column; }
+            .region-card { min-width: 260px; }
+            .regions-grid { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
-<header class="header"><div class="container header-inner"><div class="burger-menu"><div class="burger-icon">☰</div><div class="dropdown-menu"><a href="region-tyumen.html">Тюменская область</a><a href="region-ural.html">Урал</a><a href="region-povolzhye.html">Поволжье</a><a href="shipyard.html">Судостроительный завод</a><a href="mehanik.html">Завод Механик</a><a href="accumulator.html">Аккумуляторный завод</a><a href="fanerniy.html">Фанерный комбинат</a><a href="krasny_oktyabr.html">Красный Октябрь</a><a href="heroes.html">Труженики</a><a href="team.html">Команда</a><a href="conclusion.html">Заключение</a></div></div></div></header>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area"></div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-ural.html">Урал</a><a href="region-tyumen.html">Тюменская область</a></div></li>
+            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
+
 <div class="hero-full-image"><div class="hero-text"><div class="main-quote">«Труженики тыла: вклад в Победу»</div><div class="title">«Всё для фронта! Всё для победы!»</div></div></div>
-<main><div class="container">
-    <div class="intro-block"><div class="war-text"><p>Великая Отечественная война 1941–1945 годов стала тяжелейшим испытанием для всего советского народа. Победа ковалась не только на фронте, но и в тылу: миллионы людей, в том числе женщины, подростки и старики, самоотверженно трудились на заводах, фабриках и в колхозах, обеспечивая армию всем необходимым.</p><p style="margin-top:12px;">Тюменская область в годы войны стала важным тыловым регионом. Сюда были эвакуированы десятки предприятий из западных областей СССР, здесь наращивали выпуск продукции местные заводы. Люди работали по 12–14 часов в сутки, часто в тяжелейших условиях, без выходных, отдавая все силы ради общей Победы.</p></div>
-    <div class="split-goals"><div class="goal-card"><h3>Цель</h3><p>изучить и представить историю промышленных предприятий Тюменской области периода Великой Отечественной войны и рассказать о подвиге тружеников тыла, работавших на этих заводах.</p></div><div class="goal-card"><h3>Задачи</h3><ul><li>собрать и систематизировать сведения о заводах Тюменской области, действовавших в 1941–1945 годах;</li><li>выявить и описать вклад этих предприятий в обеспечение нужд фронта;</li><li>найти и рассказать истории конкретных тружеников тыла.</li></ul></div></div></div>
-    <div class="cards-section"><div class="plain-text"><p>В годы Великой Отечественной войны каждый регион СССР внёс весомый вклад в обеспечение фронта и тыла:</p></div>
-    <div class="flex-cards"><div class="region-card"><div class="card-header" data-region="ural"><h3>Урал</h3></div><div class="card-content"><p>Урал стал главным индустриальным арсеналом страны: на его долю приходилось до 40% военного производства СССР. Регион обеспечивал страну металлом (2/3 общесоюзного объёма), танками, артиллерией и другой критически важной продукцией.</p></div></div>
-    <div class="region-card"><div class="card-header" data-region="povolzhye"><h3>Поволжье</h3></div><div class="card-content"><p>Поволжье (особенно Самарская область) стало ключевым центром авиастроения (выпущено 46 тыс. самолётов) и нефтедобычи, а также крупным сельскохозяйственным донором. Оренбургская область отличалась ростом промышленного и аграрного производства, Саратовская - развитием металлообработки и военной медицины.</p></div></div>
-    <div class="region-card"><div class="card-header" data-region="tyumen"><h3>Тюменская область</h3></div><div class="card-content"><p>Тюменская область, несмотря на меньшие масштабы производства и суровые климатические условия, сыграла важную роль в выпуске специализированной оборонной продукции: торпедных катеров (165 кораблей), планеров, аккумуляторов (400 тыс. шт.), медикаментов и обмундирования. Регион принял 30 эвакуированных предприятий и оперативно наладил их работу.</p></div></div></div>
-    <div class="plain-text"><p>Таким образом, слаженная работа всех регионов — от промышленных гигантов Урала до отдалённых тыловых областей вроде Тюменской — обеспечила устойчивое снабжение Красной Армии и стала одним из ключевых факторов Победы.</p></div></div>
-</div></main>
-<footer><div class="container"></div></footer>
+
+<main>
+    <div class="container">
+        <!-- ВСТУПЛЕНИЕ -->
+        <div class="intro-block">
+            <div class="war-text">
+                <p>Великая Отечественная война 1941–1945 годов стала тяжелейшим испытанием для всего советского народа. Победа ковалась не только на фронте, но и в тылу: миллионы людей, в том числе женщины, подростки и старики, самоотверженно трудились на заводах, фабриках и в колхозах, обеспечивая армию всем необходимым.</p>
+                <p>Тюменская область в годы войны стала важным тыловым регионом. Сюда были эвакуированы десятки предприятий из западных областей СССР, здесь наращивали выпуск продукции местные заводы. Люди работали по 12–14 часов в сутки, часто в тяжелейших условиях, без выходных, отдавая все силы ради общей Победы.</p>
+            </div>
+        </div>
+
+        <!-- ЦЕЛЬ И ЗАДАЧИ (АККОРДЕОН) -->
+        <div class="goals-section">
+            <div class="goals-wrapper">
+                <div class="accordion-card">
+                    <div class="accordion-header-card">Цель</div>
+                    <div class="accordion-content-card">
+                        <div class="accordion-content-inner-card">
+                            <p>изучить и представить историю промышленных предприятий Тюменской области периода Великой Отечественной войны и рассказать о подвиге тружеников тыла, работавших на этих заводах.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-card">
+                    <div class="accordion-header-card">Задачи</div>
+                    <div class="accordion-content-card">
+                        <div class="accordion-content-inner-card">
+                            <ul>
+                                <li>собрать и систематизировать сведения о заводах Тюменской области, действовавших в 1941–1945 годах;</li>
+                                <li>выявить и описать вклад этих предприятий в обеспечение нужд фронта;</li>
+                                <li>найти и рассказать истории конкретных тружеников тыла.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКИ РЕГИОНОВ (ЗАГОЛОВОК НАД ФОТО) -->
+        <div class="regions-section">
+            <div class="section-header">Вклад регионов в Победу</div>
+            <div class="regions-grid">
+                <div class="region-card" onclick="location.href='region-ural.html'">
+                    <div class="region-header"><h3>Урал</h3></div>
+                    <img src="танк.jpg" alt="Урал в годы войны" onerror="this.src='https://via.placeholder.com/400x280?text=Урал'">
+                    <div class="card-content">
+                        <div class="card-text">Ключевой индустриальный арсенал страны: до 40% военного производства, 2/3 металлов, танки, артиллерия.</div>
+                    </div>
+                </div>
+                <div class="region-card" onclick="location.href='region-tyumen.html'">
+                    <div class="region-header"><h3>Тюменская область</h3></div>
+                    <img src="лодка.jpg" alt="Тюменская область в годы войны" onerror="this.src='https://via.placeholder.com/400x280?text=Тюменская+область'">
+                    <div class="card-content">
+                        <div class="card-text">Выпуск торпедных катеров (165 кораблей), аккумуляторов (400 тыс. шт.), планеров, медикаментов, обмундирования. Принято 30 эвакуированных предприятий.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ИТОГОВЫЙ ТЕКСТ -->
+        <div class="final-text">
+            <p>Таким образом, слаженная работа всех регионов — от промышленных гигантов Урала до отдалённых тыловых областей вроде Тюменской — обеспечила устойчивое снабжение Красной Армии и стала одним из ключевых факторов Победы.</p>
+        </div>
+    </div>
+</main>
+
+<footer><div class="container"></footer>
+
 <script>
-    const burgerIcon = document.querySelector('.burger-icon'), dropdownMenu = document.querySelector('.dropdown-menu');
-    burgerIcon.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('show'); });
-    document.addEventListener('click', e => { if (!burgerIcon.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('show'); });
-    document.querySelectorAll('.card-header').forEach(header => { header.addEventListener('click', () => { const region = header.getAttribute('data-region'); if (region === 'tyumen') window.location.href = 'region-tyumen.html'; else if (region === 'ural') window.location.href = 'region-ural.html'; else if (region === 'povolzhye') window.location.href = 'region-povolzhye.html'; }); });
+    // АККОРДЕОН ДЛЯ ЦЕЛИ И ЗАДАЧ
+    document.querySelectorAll('.accordion-header-card').forEach(header => {
+        header.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            document.querySelectorAll('.accordion-content-card').forEach(c => c.style.maxHeight = null);
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+    
+    // МЕНЮ ДЛЯ ТЕЛЕФОНОВ
+    if ('ontouchstart' in window || window.innerWidth <= 900) {
+        const dropdownTriggers = document.querySelectorAll('.nav-menu > li');
+        dropdownTriggers.forEach(trigger => {
+            const link = trigger.querySelector('a');
+            const dropdown = trigger.querySelector('.dropdown-content');
+            if (dropdown) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
+                    dropdown.classList.add('show');
+                });
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-menu')) {
+                document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
+            }
+        });
+    }
 </script>
 </body>
 </html>

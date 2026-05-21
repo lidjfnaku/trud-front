@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Библиография | Труженики тыла</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ (СОВПАДАЮТ С ДРУГИМИ СТРАНИЦАМИ) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif;
+            background-color: #fefaf5;
+            color: #2c2b28;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- НОВАЯ ШАПКА (HORIZONTAL NAVIGATION WITH DROPDOWNS) --- */
+        .header {
+            background-color: #2f3e2e;
+            padding: 1rem 0;
+            border-bottom: 3px solid #c1a259;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            color: #f3efde;
+        }
+
+        .logo-area p {
+            font-size: 0.8rem;
+            color: #e6dbba;
+            font-style: italic;
+        }
+
+        /* Основная навигация */
+        .nav-menu {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu > li > a {
+            display: block;
+            color: #fef5e6;
+            text-decoration: none;
+            padding: 0.5rem 0.2rem;
+            font-weight: 500;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-menu > li > a:hover,
+        .nav-menu > li:hover > a {
+            border-bottom-color: #e6c87a;
+            color: #ffefb9;
+        }
+
+        /* Выпадающие списки */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #2f3e2e;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 1px solid #c1a259;
+            border-top: none;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #fef5e6;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border-bottom: 1px solid #4a5a3e;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #4a5a3e;
+            color: #ffefb9;
+        }
+
+        .nav-menu > li:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- ОСНОВНОЙ КОНТЕНТ (БИБЛИОГРАФИЯ) --- */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            color: #2c3a2a;
+            font-family: 'Georgia', serif;
+           
+        }
+
+        .bibliography-list {
+            background: #fffbf2;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #e2d7c8;
+        }
+
+        .bibliography-list ol {
+            margin-left: 1.5rem;
+        }
+
+        .bibliography-list li {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2a2925;
+        }
+
+        .bibliography-list a {
+            color: #6b5a3e;
+            text-decoration: none;
+            border-bottom: 1px dotted #c1a259;
+            word-break: break-all;
+        }
+
+        .bibliography-list a:hover {
+            color: #2f3e2e;
+            border-bottom: 1px solid #2f3e2e;
+        }
+
+        /* --- ФУТЕР --- */
+        footer {
+            background: #e2dacb;
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer .container p {
+            font-size: 0.8rem;
+            color: #3e3a31;
+        }
+
+        /* --- АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ --- */
+        @media (max-width: 900px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .logo-area {
+                text-align: center;
+            }
+            .nav-menu {
+                justify-content: center;
+                gap: 1rem;
+            }
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                border: none;
+                margin-top: 0.5rem;
+            }
+            /* Для тач-устройств выпадающий список будет раскрываться по клику, а не по ховеру */
+            .nav-menu > li {
+                position: relative;
+            }
+            .dropdown-content a {
+                padding-left: 1.5rem;
+            }
+        }
+        /* Блок с авторскими правами */
+.copyright-note {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2d7c8;
+    text-align: center;
+}
+
+.copyright-note p {
+    font-size: 0.8rem;
+    color: #6b5a44;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+}
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-ural.html">Урал</a>
+                    <a href="region-tyumen.html">Тюменская область</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Предприятия</a>
+                <div class="dropdown-content">
+                    <a href="shipyard.html">Судостроительный завод</a>
+                    <a href="mehanik.html">Завод Механик</a>
+                    <a href="accumulator.html">Аккумуляторный завод</a>
+                    <a href="fanerniy.html">Фанерный комбинат</a>
+                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
+                </div>
+            </li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <h1 class="page-title">Библиографический список</h1>
+        <div class="bibliography-list">
+            <ol>
+                <li>Анисимов, В. С. Индустриальное сердце Победы [Электронный ресурс] / В. С. Анисимов, А. В. Мишунина // 80 лет Великой Победы : сборник статей всероссийской научно-практической конференции (Санкт-Петербург, 22--23 апреля 2025 года). -- Санкт-Петербург : Санкт-Петербургский государственный университет гражданской авиации им. главного маршала авиации А. А. Новикова, 2025. -- С. 3--7. -- EDN XKFYRC. -- URL: <a href="https://www.elibrary.ru/item.asp?id=82909714" target="_blank">https://www.elibrary.ru/item.asp?id=82909714</a>.</li>
+                <li>Гудки заводские, навеки родные... [Электронный ресурс] / Ирина Никитина ; АНО «Тюменская область сегодня». -- URL: <a href="https://tumentoday.ru/2011/04/30/%D0%B3%D1%83%D0%B4%D0%BA%D0%B8-%D0%B7%D0%B0%D0%B2%D0%BE%D0%B4%D1%81%D0%BA%D0%B8%D0%B5-%D0%BD%D0%B0%D0%B2%D0%B5%D0%BA%D0%B8-%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%E2%80%A6/" target="_blank">https://tumentoday.ru/2011/04/30/...</a> .</li>
+                <li>Как деревянные кони к Победе несли [Электронный ресурс] / АНО «Тюменская область сегодня». -- URL: <a href="https://tumentoday.ru/2015/04/17/%D0%BA%D0%B0%D0%BA-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8F%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BA%D0%BE%D0%BD%D0%B8-%D0%BA-%D0%BF%D0%BE%D0%B1%D0%B5%D0%B4%D0%B5-%D0%BD%D0%B5%D1%81%D0%BB%D0%B8/" target="_blank">https://tumentoday.ru/2015/04/17/...</a> .</li>
+                <li>Мамяченков, В. Н. Великая Отечественная война и трудовые ресурсы промышленности Урала: особенности развития [Электронный ресурс] / В. Н. Мамяченков, А. Л. Анисимов, В. В. Шведов // Научный диалог. -- 2021. -- № 8. -- С. 388--399. -- DOI 10.24224/2227-1295-2021-8-388-399. -- EDN UNBNBC. -- URL: <a href="https://www.elibrary.ru/item.asp?id=46445507" target="_blank">https://www.elibrary.ru/item.asp?id=46445507</a>.</li>
+                <li>Павленко, Г. К. Челябинская область в годы Великой Отечественной войны 1941--1945 годов [Электронный ресурс] / Г. К. Павленко, В. Д. Павленко // Архив в социуме -- социум в архиве : материалы седьмой всероссийской научно-практической конференции (Челябинск, 20 сентября 2024 года). -- Челябинск : б. и., 2024. -- С. 230--235. -- EDN CQWICZ. -- URL: <a href="https://www.elibrary.ru/item.asp?edn=bobwiw" target="_blank">https://www.elibrary.ru/item.asp?edn=bobwiw</a> .</li>
+                <li>Почему Авторский квартал Машаров назван именем тюменского промышленника? [Электронный ресурс] / ООО «СЗ «ЖК «МАШАРОВ». -- URL: <a href="https://masharov-kvartal.ru/pochemu-masharov" target="_blank">https://masharov-kvartal.ru/pochemu-masharov</a> (дата обращения: 15.05.2026).</li>
+                <li>Пятнадцатый фанерный [Электронный ресурс] / АНО «Тюменская область сегодня». -- URL: <a href="https://tumentoday.ru/2015/02/20/%D0%BF%D1%8F%D1%82%D0%BD%D0%B0%D0%B4%D1%86%D0%B0%D1%82%D1%8B%D0%B9-%D1%84%D0%B0%D0%BD%D0%B5%D1%80%D0%BD%D1%8B%D0%B9/" target="_blank">https://tumentoday.ru/2015/02/20/...</a> .</li>
+                <li>Рудометова, И. В. Производственная и общественная активность трудящихся легкой и пищевой промышленности Челябинской области в годы Великой Отечественной войны [Электронный ресурс] / И. В. Рудометова // Гороховские чтения : сборник материалов шестой региональной музейной конференции (Челябинск, 06 ноября 2015 года). -- Челябинск : Челябинский государственный краеведческий музей, 2015. -- С. 331--336. -- EDN UOBCWZ. -- URL: <a href="https://www.elibrary.ru/item.asp?id=24404471" target="_blank">https://www.elibrary.ru/item.asp?id=24404471</a> .</li>
+                <li>Серазетдинов, Б. У. Становление и развитие военной экономики Тюменской области в годы Великой Отечественной войны [Электронный ресурс] / Б. У. Серазетдинов // Тюменская область: историческая ретроспектива, реалии настоящего, контуры будущего : сборник статей международной научной конференции (Тюмень -- Тобольск, 20--21 сентября 2019 года). -- Тюмень -- Тобольск : Тюменский индустриальный университет, 2019. -- С. 287--295. -- EDN KEVEVV. -- URL: <a href="https://www.elibrary.ru/item.asp?id=41493890" target="_blank">https://www.elibrary.ru/item.asp?id=41493890</a> .</li>
+                <li>Серазетдинов, Б. У. Становление и развитие оборонной промышленности в Западной Сибири в 1941--1945 годах (на материалах Омской и Тюменской областей) [Электронный ресурс] / Б. У. Серазетдинов // Вестник Томского государственного педагогического университета. -- 2008. -- № 3(77). -- С. 90--93. -- EDN JWKVHZ. -- URL: <a href="https://www.elibrary.ru/item.asp?id=11717602" target="_blank">https://www.elibrary.ru/item.asp?id=11717602</a> .</li>
+                <li>Стихийный митинг 9 мая 1945 года, лыжи и пленные немцы: малоизвестные факты о Тюмени и войне [Электронный ресурс] / ООО «Интернет Технологии». -- URL: <a href="https://72.ru/text/gorod/2020/05/09/69243532/" target="_blank">https://72.ru/text/gorod/2020/05/09/69243532/</a> .</li>
+                <li>Тюмень в годы Великой Отечественной войны [Электронный ресурс] / историко-архивная справка подготовлена сотрудниками Централизованной городской библиотечной системы Ивановой Натальей Викторовной и Чупиным Валерием Александровичем для Российской академии наук... -- URL: <a href="https://gorod-t.info/culture/istoriya/4119/" target="_blank">https://gorod-t.info/culture/istoriya/4119/</a> .</li>
+                <li>Усманова, Ф. Р. Тюмень в годы Великой Отечественной войны [Электронный ресурс] / Ф. Р. Усманова // Научные исследования высшей школы : сборник тезисов докладов и сообщений на итоговой научно-практической конференции (Тюмень, 08 февраля 2010 года). -- Тюмень : Тюменский институт повышения квалификации сотрудников Министерства внутренних дел Российской Федерации, 2010. -- С. 207--208. -- EDN VYJHPD. -- URL: <a href="https://www.elibrary.ru/item.asp?id=26063963" target="_blank">https://www.elibrary.ru/item.asp?id=26063963</a> .</li>
+                <li>Фабрика «Красный Октябрь»: история и современность. Маяковский на фантиках, поющий шоколад и необычные граффити [Электронный ресурс] / Анна Пыльцына, Мария, Елена. -- URL: <a href="https://experience.tripster.ru/articles/fabrika-krasnyj-oktyabr-istoriya-i-sovremennost/" target="_blank">https://experience.tripster.ru/articles/fabrika-krasnyj-oktyabr-istoriya-i-sovremennost/</a> (дата публикации: 08.12.2025 ; дата обращения: 15.05.2026).</li>
+                <li>Чудайкина, Е. А. Челябинская область в годы Великой Отечественной войны [Электронный ресурс] / Е. А. Чудайкина, Д. Ю. Корнилова // Россия сегодня: экономика, образование и культура. Взгляд молодых : статьи и тезисы докладов 25-й международной молодежной научной конференции (Челябинск, 23 апреля 2020 года). -- Челябинск : Академия труда и социальных отношений, 2020. -- С. 250--251. -- EDN XWLQCE. -- URL: <a href="https://www.elibrary.ru/item.asp?id=48316742" target="_blank">https://www.elibrary.ru/item.asp?id=48316742</a> .</li>
+                <li>Щербин, Н. М. Сибирь: вклад в Победу в Великой Отечественной войне. Военно-исторические очерки [Электронный ресурс] / Н. М. Щербин. -- Новосибирск : Новосибирское высшее военное командное училище, 2023. -- 176 с. -- ISBN 978-5-605-02022-6. -- EDN RLWLYU. -- URL: <a href="https://www.elibrary.ru/item.asp?id=83103554" target="_blank">https://www.elibrary.ru/item.asp?id=83103554</a> .</li>
+                <li>Южаков, В. П. Мобилизационные процессы в промышленности накануне и в годы Великой Отечественной войны (на примере предприятий Тюменской области) [Электронный ресурс] / В. П. Южаков // Magistra Vitae: электронный журнал по историческим наукам и археологии. -- 2016. -- № 1. -- С. 147--155. -- EDN XDRRQN. -- URL: <a href="https://www.elibrary.ru/item.asp?id=27495329" target="_blank">https://www.elibrary.ru/item.asp?id=27495329</a> .</li>
+                <li>Клишев, А. С. Челябинский тракторный завод в годы Великой Отечественной войны [Электронный ресурс] / А. С. Клишев // Актуальные вопросы современной науки : сборник трудов по материалам XXIV Всероссийского конкурса научно-исследовательских работ (Уфа, 08 декабря 2025 года). -- Уфа : Научно-издательский центр «Вестник науки», 2025. -- С. 62--65. -- EDN EXDMLS. -- URL: <a href="https://www.elibrary.ru/item.asp?id=86435540" target="_blank">https://www.elibrary.ru/item.asp?id=86435540</a> .</li>
+            </ol>
+        </div>
+    </div>
+</main>
+        <div class="copyright-note">
+            <p style="margin-top: 0.5rem;">Все использованные текстовые материалы и изображения принадлежат их законным правообладателям. Цитирование осуществляется в образовательных и исследовательских целях. Источники информации указаны в библиографическом списке.</p>
+        </div>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Проект ЦК и ОРГ | Все права защищены</p>
+    </div>
+</footer>
+
+<!-- Небольшой скрипт для корректной работы dropdown на тач-устройствах -->
+<script>
+    // Если устройство сенсорное — раскрываем выпадающие списки по клику
+    if ('ontouchstart' in window) {
+        const dropdownParents = document.querySelectorAll('.nav-menu > li');
+        dropdownParents.forEach(parent => {
+            const link = parent.querySelector('a');
+            const dropdown = parent.querySelector('.dropdown-content');
+            if (dropdown) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isVisible = dropdown.style.display === 'block';
+                    // Закрываем все открытые дропдауны
+                    document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+                    // Открываем текущий, если он был закрыт
+                    if (!isVisible) {
+                        dropdown.style.display = 'block';
+                    }
+                });
+            }
+        });
+        // Закрытие дропдаунов при клике вне их
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-menu > li')) {
+                document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+            }
+        });
+    }
+    
+</script>
+
+</body>
+</html>

@@ -22,7 +22,12 @@
         .heroes-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 2rem 0 3rem; }
         .hero-card { flex: 1; min-width: 280px; max-width: 350px; background: #fffcf5; border: 1px solid #dad0bc; cursor: pointer; transition: all 0.2s; }
         .hero-card:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.08); border-color: #c1a259; transform: translateY(-3px); }
-        .hero-photo { width: 100%; height: 220px; background-color: #e6dccb; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-photo { width: 100%; height: 330px; background-color: #e6dccb; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-photo img {
+    width: 100%;            /* растягивает по ширине контейнера */
+    height: 100%;           /* растягивает по высоте контейнера */
+    object-fit: cover;      /* обрезает фото, чтобы оно точно заполнило квадрат, сохраняя пропорции */
+}
         .hero-photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background-color: #d9cfb8; color: #8b7a5a; font-size: 0.9rem; text-align: center; }
         .hero-info { padding: 1.2rem; }
         .hero-name { font-size: 1.3rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; margin-bottom: 0.3rem; }
@@ -41,33 +46,335 @@
         .modal-text { font-size: 0.95rem; line-height: 1.5; color: #2a2925; margin-left: 1rem; }
         .modal-text ul { margin-left: 1.2rem; }
         footer { background: #e2dacb; padding: 2rem 0; text-align: center; margin-top: auto; }
+        /* --- НОВАЯ ШАПКА (ГОРИЗОНТАЛЬНОЕ МЕНЮ С ВЫПАДАЮЩИМИ СПИСКАМИ) --- */
+.header {
+    background-color: #2f3e2e;
+    padding: 1rem 0;
+    border-bottom: 3px solid #c1a259;
+    position: relative;
+    z-index: 10;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo-area h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Georgia', serif;
+    color: #f3efde;
+}
+
+.logo-area p {
+    font-size: 0.8rem;
+    color: #e6dbba;
+    font-style: italic;
+}
+
+/* Основное меню */
+.nav-menu {
+    display: flex;
+    gap: 1.2rem;
+    list-style: none;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu > li {
+    position: relative;
+    list-style: none;
+}
+
+.nav-menu > li > a {
+    display: block;
+    color: #fef5e6;
+    text-decoration: none;
+    padding: 0.5rem 0.2rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: 0.2s;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.nav-menu > li > a:hover,
+.nav-menu > li:hover > a {
+    border-bottom-color: #e6c87a;
+    color: #ffefb9;
+}
+
+/* Выпадающие списки */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #2f3e2e;
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border: 1px solid #c1a259;
+    border-top: none;
+    z-index: 100;
+}
+
+.dropdown-content a {
+    color: #fef5e6;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #4a5a3e;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+    background-color: #4a5a3e;
+    color: #ffefb9;
+}
+
+/* Показываем выпадающий список при наведении */
+.nav-menu > li:hover .dropdown-content {
+    display: block;
+}
+
+/* --- АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ --- */
+@media (max-width: 900px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .logo-area {
+        text-align: center;
+    }
+    .nav-menu {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    .nav-menu > li > a {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.2rem;
+    }
+    .dropdown-content {
+        position: static;
+        display: none;
+        width: 100%;
+        border: none;
+        margin-top: 0.3rem;
+        box-shadow: none;
+    }
+    .dropdown-content a {
+        padding-left: 1.5rem;
+        font-size: 0.8rem;
+    }
+    /* Для тач-устройств раскрытие по клику будет обрабатываться скриптом */
+}
         @media (max-width: 780px) { .page-title { font-size: 1.6rem; } }
     </style>
 </head>
 <body>
-<header class="header"><div class="container header-inner"><div class="burger-menu"><div class="burger-icon">☰</div><div class="dropdown-menu"><a href="index.html">Главная</a><a href="region-tyumen.html">Тюменская область</a><a href="region-ural.html">Урал</a><a href="region-povolzhye.html">Поволжье</a><a href="shipyard.html">Судостроительный завод</a><a href="mehanik.html">Завод Механик</a><a href="accumulator.html">Аккумуляторный завод</a><a href="fanerniy.html">Фанерный комбинат</a><a href="krasny_oktyabr.html">Красный Октябрь</a><a href="team.html">Команда</a><a href="conclusion.html">Заключение</a></div></div></div></header>
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area">
+            
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-ural.html">Урал</a>
+                    <a href="region-povolzhye.html">Поволжье</a>
+                    <a href="region-tyumen.html">Тюменская область</a>
+                </div>
+            </li>
+            <li>
+                <a href="#">Предприятия</a>
+                <div class="dropdown-content">
+                    <a href="shipyard.html">Судостроительный завод</a>
+                    <a href="mehanik.html">Завод Механик</a>
+                    <a href="accumulator.html">Аккумуляторный завод</a>
+                    <a href="fanerniy.html">Фанерный комбинат</a>
+                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
+                </div>
+            </li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
 <main><div class="container"><h1 class="page-title">Труженики тыла Тюменской области</h1>
 <div class="heroes-grid">
 
-    <div class="hero-card" data-hero="1"><div class="hero-photo"><div class="hero-photo-placeholder">Фото</div></div><div class="hero-info"><div class="hero-name">Потапов Пётр Петрович</div><div class="hero-place">1918–2002 | Судостроительный завод</div><div class="hero-short">Герой Социалистического Труда, директор завода</div><div class="click-hint">нажмите для подробной информации →</div></div></div>
-    <div class="hero-card" data-hero="2"><div class="hero-photo"><div class="hero-photo-placeholder">Фото</div></div><div class="hero-info"><div class="hero-name">Калаев Семён Игнатьевич</div><div class="hero-place">1927 г.р. | Завод «Механик» №762</div><div class="hero-short">Начал работать в 14 лет, стаж 62 года</div><div class="click-hint">нажмите для подробной информации →</div></div></div>
-    <div class="hero-card" data-hero="3"><div class="hero-photo"><div class="hero-photo-placeholder">Фото</div></div><div class="hero-info"><div class="hero-name">Черноусова Анастасия Георгиевна</div><div class="hero-place">Аккумуляторный завод</div><div class="hero-short">Работала в мороз, пайка аккумуляторов</div><div class="click-hint">нажмите для подробной информации →</div></div></div>
-    <div class="hero-card" data-hero="4"><div class="hero-photo"><div class="hero-photo-placeholder">Фото</div></div><div class="hero-info"><div class="hero-name">Девяткова Клара Валерьевна</div><div class="hero-place">Фанерный комбинат №15</div><div class="hero-short">Сколачивала ящики для мин с детства</div><div class="click-hint">нажмите для подробной информации →</div></div></div>
-    <div class="hero-card" data-hero="5"><div class="hero-photo"><div class="hero-photo-placeholder">Фото</div></div><div class="hero-info"><div class="hero-name">Матюгорова Мария Степановна</div><div class="hero-place">ДОК «Красный Октябрь»</div><div class="hero-short">Руководила военнопленными, лыжный цех</div><div class="click-hint">нажмите для подробной информации →</div></div></div>
+    <div class="hero-card" data-hero="1">
+        <div class="hero-photo">
+         <img src="труженик.jpg" alt="Потапов Пётр Петрович">
+        </div>
+    <div class="hero-info">
+        <div class="hero-name">Потапов Пётр Петрович</div>
+        <div class="click-hint">нажмите для подробной информации →</div>
+    </div>
+</div>
+    <div class="hero-card" data-hero="2">
+        <div class="hero-photo">
+            <img src="труженик.jpg" alt="Калаев Семён Игнатьевич">
+    </div>
+    <div class="hero-info">
+        <div class="hero-name">Калаев Семён Игнатьевич</div>
+        <div class="click-hint">нажмите для подробной информации →</div>
+    </div>
+</div>
+    <div class="hero-card" data-hero="3">
+        <div class="hero-photo">
+            <img src="труженик.jpg" alt="Черноусова Анастасия Георгиевна">
+        </div>
+        <div class="hero-info">
+            <div class="hero-name">Черноусова Анастасия Георгиевна</div>
+            <div class="click-hint">нажмите для подробной информации →</div>
+        </div>
+    </div>
+    <div class="hero-card" data-hero="4">
+        <div class="hero-photo">
+            <img src="труженик.jpg" alt="Девяткова Клара Валерьевна">
+        </div>
+        <div class="hero-info">
+            <div class="hero-name">Девяткова Клара Валерьевна</div>
+            <div class="click-hint">нажмите для подробной информации →</div>
+        </div>
+    </div>
+    <div class="hero-card" data-hero="5">
+        <div class="hero-photo">
+            <img src="труженик.jpg" alt="Матюгорова Мария Степановна">
+        </div>
+        <div class="hero-info">
+            <div class="hero-name">Матюгорова Мария Степановна</div>
+            <div class="click-hint">нажмите для подробной информации →</div>
+        </div>
+    </div>
 </div></div></main>
 <footer><div class="container"></div></footer>
 <div id="heroModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="modalTitle">Труженик тыла</h2><span class="close-modal">&times;</span></div><div class="modal-body" id="modalBody"></div></div></div>
 <script>
-    const heroesData = {
-        1: { name: "Потапов Пётр Петрович", birth: "22 октября 1918, Александров Гай", biography: "Родился в 1918 году. Окончил Горьковский институт инженеров водного транспорта в 1942 году. Прошёл путь от линейного механика до директора судостроительного завода, председатель Тюменского горисполкома в 1955–1960 гг. Умер в Тюмени в 2002 году.", workplaces: ["1942–1947: линейный механик «Волготанкер»","1947–1951: главный инженер судоремонтного завода","1953–1955: директор судостроительного завода в Тюмени","1960–1989: директор Тюменского судостроительного завода"], awards: ["Герой Социалистического Труда (1985)","Лауреат Государственной премии СССР (1975)","Орден Октябрьской Революции","Два ордена Трудового Красного Знамени","Почётный гражданин Тюмени"] },
-        2: { name: "Калаев Семён Игнатьевич", birth: "14 февраля 1927 года", biography: "Родился в Свердловской области. В 1935 году семья переехала в Тюмень. 17 декабря 1941 года начал работать на заводе «Механик». После войны служил в дорожно-строительных войсках, строил аэродромы в Якутии. Вернувшись, работал модельщиком, затем прорабом. Трудовой стаж 62 года.", workplaces: ["1941–? : завод «Механик» (столярка, модельщик)","Служба в дорожно-строительных войсках","1966–1987: прораб (строил жилые дома, завод «Газстроймаш»)","1991: вернулся модельщиком на Станкостроительный завод"], awards: ["Трудовой стаж 62 года"] },
-        3: { name: "Черноусова (Изосимова) Анастасия Георгиевна", birth: "", biography: "19-летняя работница завода, проработала 26 лет. Начинала с уборки территории. Обучалась сборке аккумуляторов. Работала в мороз, закутываясь во всю одежду, спала в цехе.", workplaces: ["Тюменский аккумуляторный завод","Пайка плюсовых полублоков"], awards: ["Медаль «За доблестный труд в годы Великой Отечественной войны»"] },
-        4: { name: "Девяткова (Соловьёва) Клара Валерьевна", birth: "", biography: "Когда началась война, пошла во второй класс. Школа №13 находилась рядом с фанерным комбинатом, школьников пригласили помогать. Совмещала учёбу и работу, была отличницей. Зимой участвовала в цикле «цепь галя»: закатывала брёвна на транспортёр по льду.", workplaces: ["Тюменский фанерный комбинат №15","Сколачивала ящики для мин","Участвовала в зимнем цикле «цепь галя»"], awards: ["Ветеран труда"] },
-        5: { name: "Матюгорова Мария Степановна", birth: "", biography: "В 1940 году, в 16 лет, пришла работать на деревообделочный комбинат в лыжный цех. Проработала 36 лет. Весной 1943 года руководила группой военнопленных. Три брата ушли на фронт, один погиб.", workplaces: ["ДОК «Красный Октябрь», цех №1","Изготовление лыж, ящиков для боеприпасов","Руководство военнопленными (1943)"], awards: ["В 1943 году ДОК изготовил 55 150 пар лыж"] }
-    };
+const heroesData = {
+    1: {
+        name: "Потапов Пётр Петрович",
+        birth: "22 октября 1918, Александров Гай",
+        biography: "Родился в 1918 году. Окончил Горьковский институт инженеров водного транспорта в 1942 году. Прошёл путь от линейного механика до директора судостроительного завода. Умер в Тюмени в 2002 году.",
+        workplaces: [
+            "1942–1947: линейный механик «Волготанкер»",
+            "1947–1951: главный инженер судоремонтного завода",
+            "1953–1955: директор судостроительного завода в Тюмени",
+            "1955–1960: председатель Тюменского горисполкома",
+            "1960–1989: директор Тюменского судостроительного завода"
+        ],
+        workActivities: [], // Для него нет отдельного пункта "чем занимался"
+        awards: [
+            "Герой Социалистического Труда (1985)",
+            "Лауреат Государственной премии СССР (1975)",
+            "Орден Октябрьской Революции",
+            "Два ордена Трудового Красного Знамени",
+            "Почётный гражданин Тюмени"
+        ],
+        fact: "" // Факта нет
+    },
+    2: {
+        name: "Калаев Семён Игнатьевич",
+        birth: "14 февраля 1927 года",
+        biography: "Родился в Свердловской области. В 1935 году семья переехала в Тюмень. 17 декабря 1941 года начал работать на заводе «Механик». После войны служил в дорожно-строительных войсках, строил аэродромы в Якутии. Вернувшись, работал модельщиком, затем прорабом.",
+        workplaces: [
+            "1941–? : завод «Механик» (столярка, модельщик)",
+            "Служба в дорожно-строительных войсках",
+            "1966–1987: прораб (строил жилые дома, завод «Газстроймаш»)",
+            "1991: вернулся модельщиком на Станкостроительный завод"
+        ],
+        workActivities: [],
+        awards: ["Сведения не представлены"],
+        fact: "Общий трудовой стаж Семёна Игнатьевича составляет 62 года."
+    },
+    3: {
+        name: "Черноусова (Изосимова) Анастасия Георгиевна",
+        birth: "",
+        biography: "19-летняя работница завода, проработала 26 лет. Начинала с уборки территории. Обучалась сборке аккумуляторов. Работала в мороз, закутываясь во всю одежду, спала в цехе.",
+        workplaces: ["Тюменский аккумуляторный завод"],
+        workActivities: ["Пайка плюсовых полублоков"],
+        awards: ["Медаль «За доблестный труд в годы Великой Отечественной войны»"],
+        fact: ""
+    },
+    4: {
+        name: "Девяткова (Соловьёва) Клара Валерьевна",
+        birth: "",
+        biography: "Когда началась война, пошла во второй класс. Школа №13 находилась рядом с фанерным комбинатом, школьников пригласили помогать. Совмещала учёбу и работу, была отличницей.",
+        workplaces: ["Тюменский фанерный комбинат №15"],
+        workActivities: ["Сколачивала ящики для мин"],
+        awards: ["Награждена почётным званием «Ветеран труда»"],
+        fact: "Участвовала в зимнем цикле «цепь галя»: закатывала брёвна на транспортёр по льду."
+    },
+    5: {
+        name: "Матюгорова Мария Степановна",
+        birth: "",
+        biography: "В 1940 году, в 16 лет, пришла работать на деревообделочный комбинат в лыжный цех. Проработала 36 лет. Три брата ушли на фронт, один погиб.",
+        workplaces: ["ДОК «Красный Октябрь», цех №1"],
+        workActivities: ["Изготовление лыж, ящиков для боеприпасов"],
+        awards: ["Сведения не представлены"],
+        fact: "Весной 1943 года руководила группой военнопленных. Именно в этот год ДОК «Красный Октябрь» изготовил рекордное количество лыж — 55 150 единиц."
+    }
+};
     const modal = document.getElementById('heroModal'), modalTitle = document.getElementById('modalTitle'), modalBody = document.getElementById('modalBody'), closeBtn = document.querySelector('.close-modal');
-    function openModal(heroId) { const hero = heroesData[heroId]; if (!hero) return; modalTitle.textContent = hero.name; let html = ''; if (hero.birth) html += `<div class="modal-section"><div class="modal-section-title">Рождение</div><div class="modal-text"><p>${hero.birth}</p></div></div>`; html += `<div class="modal-section"><div class="modal-section-title">Краткая биография</div><div class="modal-text"><p>${hero.biography}</p></div></div>`; if (hero.workplaces?.length) { html += `<div class="modal-section"><div class="modal-section-title">Где трудился</div><div class="modal-text"><ul>${hero.workplaces.map(p=>`<li>${p}</li>`).join('')}</ul></div></div>`; } if (hero.awards?.length) { html += `<div class="modal-section"><div class="modal-section-title">Награды</div><div class="modal-text"><ul>${hero.awards.map(a=>`<li>${a}</li>`).join('')}</ul></div></div>`; } modalBody.innerHTML = html; modal.style.display = 'block'; }
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+function openModal(heroId) {
+    const hero = heroesData[heroId];
+    if (!hero) return;
+    modalTitle.textContent = hero.name;
+    let html = '';
+
+    if (hero.birth) html += `<div class="modal-section"><div class="modal-section-title">Рождение</div><div class="modal-text"><p>${hero.birth}</p></div></div>`;
+
+    html += `<div class="modal-section"><div class="modal-section-title">Краткая биография</div><div class="modal-text"><p>${hero.biography}</p></div></div>`;
+
+    // Где трудился
+    if (hero.workplaces?.length) {
+        if (hero.workplaces.length === 1) {
+            html += `<div class="modal-section"><div class="modal-section-title">Где трудился</div><div class="modal-text"><p>${hero.workplaces[0]}</p></div></div>`;
+        } else {
+            html += `<div class="modal-section"><div class="modal-section-title">Где трудился</div><div class="modal-text"><ul>${hero.workplaces.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`;
+        }
+    }
+
+    // Чем занимался
+    if (hero.workActivities?.length) {
+        if (hero.workActivities.length === 1) {
+            html += `<div class="modal-section"><div class="modal-section-title">Чем занимался</div><div class="modal-text"><p>${hero.workActivities[0]}</p></div></div>`;
+        } else {
+            html += `<div class="modal-section"><div class="modal-section-title">Чем занимался</div><div class="modal-text"><ul>${hero.workActivities.map(a => `<li>${a}</li>`).join('')}</ul></div></div>`;
+        }
+    }
+
+    // Награды
+    if (hero.awards?.length) {
+        if (hero.awards.length === 1) {
+            html += `<div class="modal-section"><div class="modal-section-title">Награды</div><div class="modal-text"><p>${hero.awards[0]}</p></div></div>`;
+        } else {
+            html += `<div class="modal-section"><div class="modal-section-title">Награды</div><div class="modal-text"><ul>${hero.awards.map(a => `<li>${a}</li>`).join('')}</ul></div></div>`;
+        }
+    }
+
+    // Интересный факт
+    if (hero.fact && hero.fact.trim() !== '') {
+        html += `<div class="modal-section"><div class="modal-section-title">Интересный факт</div><div class="modal-text"><p>${hero.fact}</p></div></div>`;
+    }
+
+    modalBody.innerHTML = html;
+    modal.style.display = 'block';
+}    
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (event) => { if (event.target === modal) modal.style.display = 'none'; });
     document.querySelectorAll('.hero-card').forEach(card => { card.addEventListener('click', () => { const heroId = card.getAttribute('data-hero'); openModal(heroId); }); });
     const burgerIcon = document.querySelector('.burger-icon'), dropdownMenu = document.querySelector('.dropdown-menu');

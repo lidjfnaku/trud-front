@@ -3,51 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Аккумуляторный завод</title>
+    <title>Аккумуляторный завод | Труженики тыла</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.5; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        .header { background-color: rgba(30,35,25,0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 10; }
-        .header-inner { display: flex; justify-content: flex-end; align-items: center; }
-        .burger-menu { position: relative; }
-        .burger-icon { font-size: 2rem; cursor: pointer; color: #f3efde; transition: 0.2s; user-select: none; }
-        .burger-icon:hover { color: #ffefb9; }
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; background-color: #2f3e2e; border: 1px solid #c1a259; min-width: 220px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .dropdown-menu a { display: block; color: #fef5e6; text-decoration: none; padding: 10px 16px; font-size: 0.9rem; transition: 0.2s; border-bottom: 1px solid #4a5a3e; }
-        .dropdown-menu a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        .dropdown-menu.show { display: block; }
+        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.45; }
+        
+        /* ФОН НА ВСЮ СТРАНИЦУ */
         .hero-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('аккумулятор.webp'); background-size: cover; background-position: center; z-index: -2; }
-        .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
-        .factory-title { text-align: center; margin: 1rem 0 0; position: relative; z-index: 2; }
-        .factory-title h1 { font-size: 2rem; font-family: 'Georgia', serif; color: #f3de8a; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); display: inline-block; padding: 0.5rem 2rem; border-radius: 40px; backdrop-filter: blur(4px); }
-        .main-content { position: relative; z-index: 2; min-height: calc(100vh - 72px); display: flex; align-items: stretch; padding: 12rem 0 20rem 0; }
-        .history-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 0 16px 16px 0; padding: 1.8rem; margin-right: 1.5rem; }
-        .accordion-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 16px 0 0 16px; padding: 1.8rem; margin-left: 1.5rem; }
-        .history-title { font-size: 1.3rem; font-weight: 700; color: #e6d6a8; margin-bottom: 1rem; border-bottom: 1px solid rgba(200,180,120,0.5); display: inline-block; padding-bottom: 4px; }
-        .history-item { margin-bottom: 1.5rem; }
-        .history-year { font-size: 1rem; font-weight: 700; color: #f3de8a; margin-bottom: 0.3rem; }
-        .history-text { font-size: 0.95rem; line-height: 1.45; color: #f0ede8; }
-        .accordion-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #e6d6a8; text-align: center; font-family: 'Georgia', serif; }
-        .accordion-item { border: 1px solid rgba(200,185,130,0.4); margin-bottom: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; }
-        .accordion-header { background-color: rgba(0,0,0,0.4); padding: 1rem 1.2rem; cursor: pointer; font-weight: 600; font-size: 1rem; color: #f3de8a; transition: all 0.2s; font-family: 'Georgia', serif; }
-        .accordion-header:hover { background-color: rgba(0,0,0,0.6); color: #ffefb0; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background-color: rgba(0,0,0,0.3); }
-        .accordion-content-inner { padding: 1.2rem; font-size: 0.92rem; line-height: 1.5; color: #f0ede8; }
-        .stat-badge { display: inline-block; background: #c1a259; color: #1e2a1a; padding: 2px 8px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-right: 6px; }
-        footer { position: relative; z-index: 2; background: rgba(30,35,25,0.85); backdrop-filter: blur(4px); padding: 1.2rem 0; text-align: center; border-top: 1px solid #c1a259; margin-top: 2rem; }
-        @media (max-width: 900px) { .main-content { flex-direction: column; gap: 1.5rem; } .history-column, .accordion-column { margin: 0; border-radius: 16px; } }
+        .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: -1; }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+        
+        /* ========== ИСПРАВЛЕННАЯ ШАПКА (МЕНЮ НЕ ПРОПАДАЕТ) ========== */
+        .header { background-color: rgba(30, 35, 25, 0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 600; font-family: 'Georgia', serif; color: #f3efde; }
+        .logo-area p { font-size: 0.8rem; color: #e6dbba; font-style: italic; }
+        .nav-menu { display: flex; gap: 1.2rem; list-style: none; flex-wrap: wrap; margin: 0; padding: 0; }
+        .nav-menu > li { position: relative; }
+        .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
+        
+        /* МОСТИК-ПРОКЛАДКА */
+        .nav-menu > li::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 15px; background: transparent; z-index: 1001; }
+        
+        .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
+        .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
+        .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
+        
+        /* МЕНЮ ОТКРЫТО ПРИ НАВЕДЕНИИ НА ССЫЛКУ И НА САМ СПИСОК */
+        .nav-menu > li:hover .dropdown-content,
+        .dropdown-content:hover { display: block; }
+        /* ======================================================== */
+        
+        /* ЗАГОЛОВКИ */
+        .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #f3de8a; font-family: 'Georgia', serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .subtitle { margin-bottom: 1.5rem; font-size: 1rem; color: #e6dbba; padding-left: 1rem; }
+        
+        /* ПОЛУПРОЗРАЧНЫЕ КАРТОЧКИ */
+        .factory-sections { display: flex; flex-wrap: wrap; gap: 2rem; margin:8rem 0 2rem 0; }
+        .section-card { flex: 1; min-width: 280px; background: rgba(25, 30, 22, 0.7); backdrop-filter: blur(6px); border: 1px solid rgba(200, 185, 130, 0.5); border-radius: 12px; padding: 1.2rem; transition: 0.2s; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #f3de8a; font-family: 'Georgia', serif; margin-bottom: 1rem; border-left: 4px solid #c1a259; padding-left: 0.8rem; }
+        
+        /* АККОРДЕОН ВНУТРИ КАРТОЧКИ */
+        .accordion-item { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(200, 185, 130, 0.3); }
+        .accordion-header { background: rgba(0, 0, 0, 0.4); padding: 0.7rem 0.8rem; cursor: pointer; font-weight: 600; font-size: 0.95rem; color: #ffefb0; transition: 0.2s; border-radius: 6px; margin-bottom: 0.2rem; }
+        .accordion-header:hover { background: rgba(0, 0, 0, 0.6); color: #fff4d0; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background: rgba(0, 0, 0, 0.3); border-radius: 6px; margin-bottom: 0.3rem; }
+        .accordion-content-inner { padding: 0.8rem; font-size: 0.9rem; line-height: 1.4; color: #f0ede8; }
+        .accordion-content-inner ul { margin-left: 1.2rem; margin-top: 0.3rem; }
+        .accordion-content-inner li { margin-bottom: 0.3rem; }
+        .stat-number { font-weight: 700; color: #f3de8a; }
+        
+        footer { background: rgba(30, 35, 25, 0.85); backdrop-filter: blur(4px); padding: 1.5rem 0; text-align: center; margin-top: 3rem; border-top: 1px solid #c1a259; }
+       body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+        @media (max-width: 780px) { .factory-sections { flex-direction: column; } .nav-menu { gap: 0.8rem; } .dropdown-content { position: static; } }
     </style>
 </head>
 <body>
 <div class="hero-overlay"></div>
-<header class="header"><div class="container header-inner"><div class="burger-menu"><div class="burger-icon">☰</div><div class="dropdown-menu"><a href="index.html">Главная</a><a href="region-tyumen.html">Тюменская область</a><a href="region-ural.html">Урал</a><a href="region-povolzhye.html">Поволжье</a><a href="shipyard.html">Судостроительный завод</a><a href="mehanik.html">Завод Механик</a><a href="fanerniy.html">Фанерный комбинат</a><a href="krasny_oktyabr.html">Красный Октябрь</a><a href="heroes.html">Труженики</a><a href="team.html">Команда</a><a href="conclusion.html">Заключение</a></div></div></div></header>
-<main><div class="container"><div class="factory-title"><h1>Тюменский аккумуляторный завод</h1></div>
-<div class="main-content">
-    <div class="history-column"><div class="history-item"><div class="history-title">Начало деятельности (1941–1945)</div><div class="history-year">9 октября 1941</div><div class="history-text">Утверждено строительство дублера Подольского аккумуляторного завода в Тюмени.</div></div><div class="history-item"><div class="history-year">16 октября 1941</div><div class="history-text">Подольский завод остановлен, оборудование начали перевозить.</div></div><div class="history-item"><div class="history-year">20 ноября 1941</div><div class="history-text">Оборудование прибыло в Тюмень. Размещение на ул. Луначарского 19.</div></div><div class="history-item"><div class="history-year">Сроки строительства</div><div class="history-text">Завод возвели за 2 месяца. Коллектив — женщины и подростки 14–16 лет.</div></div><div class="history-item"><div class="history-year">Весна 1942</div><div class="history-text">Выпущено 4000 аккумуляторов (превысило план).</div></div></div>
-    <div class="accordion-column"><div class="accordion-title">Итоги и послевоенный период</div><div class="accordion"><div class="accordion-item"><div class="accordion-header">Итоги войны</div><div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-badge">500 000</span> аккумуляторов изготовлено к маю 1945 года.</p><p><span class="stat-badge">411</span> человек награждены медалью «За доблестный труд».</p></div></div></div><div class="accordion-item"><div class="accordion-header">Послевоенный период</div><div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-badge">Численность</span> 459 человек.</p><p><span class="stat-badge">Социальная политика</span> Строительство жилья для сотрудников.</p><p><span class="stat-badge">Модернизация</span> Обновление оборудования.</p><p><span class="stat-badge">Инфраструктура</span> Создание КБ, строительство клуба, столовой, детского сада.</p><p><span class="stat-badge">1971</span> Завершено строительство новых помещений, выпуск 4 видов аккумуляторов.</p></div></div></div></div></div>
-</div></div></main>
-<footer><div class="container"></div></footer>
-<script>const burgerIcon = document.querySelector('.burger-icon'), dropdownMenu = document.querySelector('.dropdown-menu'); burgerIcon.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('show'); }); document.addEventListener('click', e => { if (!burgerIcon.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('show'); }); document.querySelectorAll('.accordion-header').forEach(h=>{h.addEventListener('click',function(){let c=this.nextElementSibling,open=c.style.maxHeight&&c.style.maxHeight!=='0px';document.querySelectorAll('.accordion-content').forEach(c=>c.style.maxHeight=null);if(!open)c.style.maxHeight=c.scrollHeight+'px';});});</script>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area"></div>
+        <ul class="nav-menu">
+            <li><a href="index.html">О проекте</a></li>
+            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-ural.html">Урал</a><a href="region-tyumen.html">Тюменская область</a></div></li>
+            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
+            <li><a href="heroes.html">Труженики</a></li>
+            <li><a href="team.html">Команда</a></li>
+            <li><a href="conclusion.html">Заключение</a></li>
+            <li><a href="bibliography.html">Библиография</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <h1 class="page-title">Тюменский аккумуляторный завод</h1>
+        
+        <div class="factory-sections">
+            <!-- ДОВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Довоенный период</div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Промышленность Тюмени</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>В Тюмени не было крупной промышленности — в основном мелкие артели.</p></div></div>
+                </div>
+            </div>
+            
+            <!-- ВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Военный период</div>
+                <div class="accordion-item"><div class="accordion-header">Декабрь 1941 — эвакуация</div><div class="accordion-content"><div class="accordion-content-inner"><p>Эвакуация оборудования и специалистов Подольского аккумуляторного завода.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">Условия размещения</div><div class="accordion-content"><div class="accordion-content-inner"><p>Старые неотапливаемые склады без электричества, без нормальных полов.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">Запуск производства</div><div class="accordion-content"><div class="accordion-content-inner"><p>Уже в начале <span class="stat-number">1942 года</span> начали выпуск аккумуляторов для фронта.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">Инженерные решения (1942–1944)</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>вместо цементных полов — деревянные</li><li>авиационное масло заменили машинным</li><li>способ обработки механизмов повысил срок службы на 50%</li></ul></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">Результат к маю 1945</div><div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-number">500 000 аккумуляторов</span>, более 400 человек награждены медалью «За доблестный труд».</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">Годовые показатели выпуска</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>1942 — 110 тыс.</li><li>1943 — более 120 тыс.</li><li>1944 — 133 тыс.</li><li>1945 — 500 тыс.</li></ul></div></div></div>
+            </div>
+            
+            <!-- ПОСЛЕВОЕННЫЙ ПЕРИОД -->
+            <div class="section-card">
+                <div class="section-title"> Послевоенный период</div>
+                <div class="accordion-item"><div class="accordion-header">1950-е годы</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>Самостоятельное строительство жилья для рабочих (улицы Военная, Барнаульская, Луначарского)</li><li>Создано конструкторское бюро</li><li>Усилены ремонтно-механический и ремонтно-строительный цеха</li></ul></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">1971 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Введены новые корпуса, литейный цех перенесён за город.</p></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">К 2000-м годам</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>Освоен выпуск батарей для тепловозов, электростанций, газопроводов</li><li>Совместное предприятие с австрийскими и итальянскими партнёрами</li></ul></div></div></div>
+                <div class="accordion-item"><div class="accordion-header">2017 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Выпущен <span class="stat-number">75‑миллионный аккумулятор</span>.</p></div></div></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer></footer>
+
+<script>
+    // Аккордеон внутри карточек
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            const parentCard = this.closest('.section-card');
+            if (parentCard) {
+                parentCard.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            }
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Для сенсорных экранов и дополнительной страховки
+    if ('ontouchstart' in window || window.innerWidth <= 900) {
+        const dropdownTriggers = document.querySelectorAll('.nav-menu > li');
+        dropdownTriggers.forEach(trigger => {
+            const link = trigger.querySelector('a');
+            const dropdown = trigger.querySelector('.dropdown-content');
+            if (dropdown) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                });
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-menu')) {
+                document.querySelectorAll('.dropdown-content').forEach(dd => dd.style.display = 'none');
+            }
+        });
+    }
+</script>
 </body>
 </html>
