@@ -6,10 +6,9 @@
     <title>Красный Октябрь</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.5; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; flex: 1; }
         
-        /* ---------- НОВАЯ ШАПКА (ГОРИЗОНТАЛЬНОЕ МЕНЮ) ---------- */
         .header { background-color: rgba(30, 35, 25, 0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 100; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo-area h1 { font-size: 1.5rem; font-weight: 600; font-family: 'Georgia', serif; color: #f3efde; }
@@ -18,39 +17,41 @@
         .nav-menu > li { position: relative; }
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
-        
-        /* МОСТИК-ПРОКЛАДКА */
         .nav-menu > li::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 15px; background: transparent; z-index: 1001; }
-        
         .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
         .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        
-        /* МЕНЮ ОТКРЫТО ПРИ НАВЕДЕНИИ НА ССЫЛКУ И НА САМ СПИСОК */
         .nav-menu > li:hover .dropdown-content,
         .dropdown-content:hover { display: block; }
-        /* ------------------------------------------------------ */
         
         .hero-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('красный октбрь.jpg'); background-size: cover; background-position: center; z-index: -2; }
         .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
+        
         .factory-title { text-align: center; margin: 1rem 0 0; position: relative; z-index: 2; }
         .factory-title h1 { font-size: 2rem; font-family: 'Georgia', serif; color: #f3de8a; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); display: inline-block; padding: 0.5rem 2rem; border-radius: 40px; backdrop-filter: blur(4px); }
-        .main-content { position: relative; z-index: 2; min-height: calc(100vh - 72px); display: flex; align-items: stretch; padding: 12rem 0 20rem 0; }
-        .history-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 0 16px 16px 0; padding: 1.8rem; margin-right: 1.5rem; }
-        .accordion-column { flex: 1; background: rgba(0,0,0,0.4); border-radius: 16px 0 0 16px; padding: 1.8rem; margin-left: 1.5rem; }
-        .history-title { font-size: 1.3rem; font-weight: 700; color: #e6d6a8; margin-bottom: 1rem; border-bottom: 1px solid rgba(200,180,120,0.5); display: inline-block; padding-bottom: 4px; }
-        .history-item { margin-bottom: 1.5rem; }
-        .history-year { font-size: 1rem; font-weight: 700; color: #f3de8a; margin-bottom: 0.3rem; }
-        .history-text { font-size: 0.95rem; line-height: 1.45; color: #f0ede8; }
-        .accordion-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #e6d6a8; text-align: center; font-family: 'Georgia', serif; }
-        .accordion-item { border: 1px solid rgba(200,185,130,0.4); margin-bottom: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; }
-        .accordion-header { background-color: rgba(0,0,0,0.4); padding: 1rem 1.2rem; cursor: pointer; font-weight: 600; font-size: 1rem; color: #f3de8a; transition: all 0.2s; font-family: 'Georgia', serif; }
-        .accordion-header:hover { background-color: rgba(0,0,0,0.6); color: #ffefb0; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background-color: rgba(0,0,0,0.3); }
-        .accordion-content-inner { padding: 1.2rem; font-size: 0.92rem; line-height: 1.5; color: #f0ede8; }
+        
+        .factory-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 8rem 0 2rem; position: relative; z-index: 2; }
+        .factory-card { flex: 1; min-width: 280px; background: rgba(25, 30, 22, 0.75); backdrop-filter: blur(8px); border: 1px solid rgba(200, 185, 130, 0.6); border-radius: 12px; padding: 1.5rem; transition: 0.2s; }
+        .factory-card:hover { transform: translateY(-5px); border-color: #c1a259; }
+        .card-title { font-size: 1.6rem; font-weight: 700; color: #f3de8a; font-family: 'Georgia', serif; margin-bottom: 1rem;  padding-left: 0.8rem; }
+        
+        .accordion-item { margin-bottom: 0.5rem; border-bottom: 1px solid rgba(200, 185, 130, 0.3); }
+        .accordion-header { background: rgba(0, 0, 0, 0.5); padding: 0.8rem 1rem; cursor: pointer; font-weight: 600; font-size: 1rem; color: #ffefb0; transition: 0.2s; border-radius: 8px; margin-bottom: 0.2rem; }
+        .accordion-header:hover { background: rgba(0, 0, 0, 0.7); color: #fff4d0; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; background: rgba(0, 0, 0, 0.4); border-radius: 8px; }
+        .accordion-content-inner { padding: 0.8rem 1rem; font-size: 0.9rem; line-height: 1.4; color: #f0ede8; }
+        .accordion-content-inner ul { margin-left: 1.2rem; margin-top: 0.3rem; }
+        .accordion-content-inner li { margin-bottom: 0.3rem; }
         .stat-badge { display: inline-block; background: #c1a259; color: #1e2a1a; padding: 2px 8px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-right: 6px; }
-        footer { position: relative; z-index: 2; background: rgba(30,35,25,0.85); backdrop-filter: blur(4px); padding: 1.2rem 0; text-align: center; border-top: 1px solid #c1a259; margin-top: 2rem; }
-        @media (max-width: 900px) { .main-content { flex-direction: column; gap: 1.5rem; } .history-column, .accordion-column { margin: 0; border-radius: 16px; } }
+        
+        footer { background: rgba(30, 35, 25, 0.85); backdrop-filter: blur(4px); padding: 1.2rem 0; text-align: center; margin-top: auto; border-top: 1px solid #c1a259; }
+        
+        @media (max-width: 780px) { 
+            .factory-grid { flex-direction: column; align-items: center; } 
+            .factory-card { width: 100%; max-width: 400px; }
+        }
+        
+        a, a:hover, a:focus, a:active { text-decoration: none !important; border-bottom: none !important; }
     </style>
 </head>
 <body>
@@ -59,19 +60,23 @@
 <header class="header">
     <div class="container header-inner">
         <div class="logo-area">
-            
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
+       <ul class="nav-menu">
             <li>
-                <a href="#">Статистика</a>
+                <a href="#">О проекте</a>
                 <div class="dropdown-content">
-                    <a href="region-ural.html">Урал</a>
-                    <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
                 </div>
             </li>
-            <li>
-                <a href="#">Предприятия</a>
+            <li><a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="region-ural.html">Урал</a>
+                </div>
+            </li>
+            <li><a href="#">Предприятия</a>
                 <div class="dropdown-content">
                     <a href="shipyard.html">Судостроительный</a>
                     <a href="mehanik.html">Механик</a>
@@ -91,35 +96,88 @@
 <main>
     <div class="container">
         <div class="factory-title"><h1>ДОК «Красный Октябрь»</h1></div>
-        <div class="main-content">
-            <div class="history-column">
-                <div class="history-item"><div class="history-title">Начало деятельности</div><div class="history-year">1 мая 1933 года</div><div class="history-text">Официальная дата запуска комбината. Изначально производились стандартные дома, позже — табуретки, мебель, повозки, сани, телеги, лыжи.</div></div>
-                <div class="history-item"><div class="history-title">Великая Отечественная война</div><div class="history-text">Комбинат переориентировался на оборонные заказы: лыжи, ящики для фронта, детали понтонных мостов, упаковка для мин и снарядов, приклады автоматов, черенки сапёрных лопат. В 1941 году произведено 881 пара лыж и 7320 пар лыжных палок. В 1943 году объединён с лесозаводами «Красный Октябрь» и «Республиканец».</div></div>
+        
+        <div class="factory-grid">
+            <!-- КАРТОЧКА 1: ДОВОЕННЫЙ ПЕРИОД -->
+            <div class="factory-card">
+                <div class="card-title"> Довоенный период</div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Основание</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>1 мая 1933 года — официальная дата запуска комбината. Предприятие создано для выполнения государственных заказов.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Продукция до войны</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><ul><li>стандартные дома</li><li>табуретки, мебель</li><li>обозное оборудование (пароконные повозки, телеги, сани)</li><li>лыжи «Турист» (конец 1930-х)</li></ul></div></div>
+                </div>
             </div>
-            <div class="accordion-column">
-                <div class="accordion-title">После войны</div>
-                <div class="accordion">
-                    <div class="accordion-item"><div class="accordion-header">Мирная продукция</div><div class="accordion-content"><div class="accordion-content-inner"><p>После войны комбинат вернулся к выпуску мирной продукции: щитовых домов, мебели, контейнеров для железной дороги.</p><p><span class="stat-badge">1941</span> 881 пара лыж и 7320 пар лыжных палок</p><p><span class="stat-badge">1943</span> Объединение с лесозаводами «Красный Октябрь» и «Республиканец»</p></div></div></div>
+            
+            <!-- КАРТОЧКА 2: ВОЕННЫЙ ПЕРИОД -->
+            <div class="factory-card">
+                <div class="card-title"> Военный период</div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Переориентация на фронт</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>Комбинат полностью переключился на нужды фронта.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Продукция военного времени</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><ul><li>лыжи и лыжные палки</li><li>ящики для военной продукции</li><li>детали понтонных мостов</li><li>упаковка для мин и снарядов</li><li>приклады автоматов</li><li>черенки сапёрных лопат</li></ul></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">1941 год</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p><span class="stat-badge">881 пара</span> лыж и <span class="stat-badge">7 320 пар</span> лыжных палок</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">1943 год</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>Объединение с лесозаводами «Красный Октябрь» и «Республиканец»</p></div></div>
+                </div>
+            </div>
+            
+            <!-- КАРТОЧКА 3: ПОСЛЕВОЕННЫЙ ПЕРИОД -->
+            <div class="factory-card">
+                <div class="card-title"> Послевоенный период</div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Возврат к мирной продукции</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><ul><li>щитовые дома</li><li>мебель</li><li>контейнеры для железной дороги</li></ul></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Модернизация</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>В 1970-е годы запущен четырёхрамный лесопильный цех, цех древесно-стружечных плит, подготовка производства мебельных щитов.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">1995 год</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>Выпущены первые древесно-стружечные плиты, облицованные плёнками на основе термореактивных полимеров (ламинат). Использовано немецкое оборудование.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">2017 год</div>
+                    <div class="accordion-content"><div class="accordion-content-inner"><p>Компания сменила профиль, выпуск основной продукции завершён.</p></div></div>
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<footer><div class="container"></div></footer>
+<footer>
+    <div class="container">
+    </div>
+</footer>
 
 <script>
     // Аккордеон
-    document.querySelectorAll('.accordion-header').forEach(h => {
-        h.addEventListener('click', function() {
-            let c = this.nextElementSibling;
-            let open = c.style.maxHeight && c.style.maxHeight !== '0px';
-            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-            if (!open) c.style.maxHeight = c.scrollHeight + 'px';
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+            const parentCard = this.closest('.factory-card');
+            if (parentCard) {
+                parentCard.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            }
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
         });
     });
 
-    // Для сенсорных экранов: раскрытие dropdown по клику
+    // Меню для телефонов
     if ('ontouchstart' in window || window.innerWidth <= 900) {
         const dropdownParents = document.querySelectorAll('.nav-menu > li');
         dropdownParents.forEach(parent => {

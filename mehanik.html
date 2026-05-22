@@ -17,9 +17,6 @@
         .logo-area p { font-size: 0.8rem; color: #e6dbba; font-style: italic; }
         .nav-menu { display: flex; gap: 1.2rem; list-style: none; flex-wrap: wrap; margin: 0; padding: 0; }
         .nav-menu > li { position: relative; }
-        @media (min-width: 901px) {
-            .nav-menu > li { position: relative; }
-        }
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
         
@@ -40,7 +37,6 @@
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
         
         .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #f3de8a; font-family: 'Georgia', serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-        .subtitle { margin-bottom: 1.5rem; font-size: 1rem; color: #e6dbba; padding-left: 1rem; }
         
         .factory-sections { display: flex; flex-wrap: wrap; gap: 2rem; margin: 8rem 0 2rem 0; }
         .section-card { flex: 1; min-width: 280px; background: rgba(25, 30, 22, 0.7); backdrop-filter: blur(6px); border: 1px solid rgba(200, 185, 130, 0.5); border-radius: 12px; padding: 1.2rem; }
@@ -56,6 +52,9 @@
         .stat-number { font-weight: 700; color: #f3de8a; }
         
         footer { background: rgba(30, 35, 25, 0.85); backdrop-filter: blur(4px); padding: 1.5rem 0; text-align: center; margin-top: auto; border-top: 1px solid #c1a259; }
+        
+        a, a:hover, a:focus, a:active { text-decoration: none !important; border-bottom: none !important; }
+        
         @media (max-width: 780px) { .factory-sections { flex-direction: column; } .nav-menu { gap: 0.8rem; } }
     </style>
 </head>
@@ -64,11 +63,32 @@
 
 <header class="header">
     <div class="container header-inner">
-        <div class="logo-area"></div>
-        <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
-            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-ural.html">Урал</a><a href="region-tyumen.html">Тюменская область</a></div></li>
-            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
+        <div class="logo-area">
+        </div>
+       <ul class="nav-menu">
+            <li>
+                <a href="#">О проекте</a>
+                <div class="dropdown-content">
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
+                </div>
+            </li>
+            <li><a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="region-ural.html">Урал</a>
+                </div>
+            </li>
+            <li><a href="#">Предприятия</a>
+                <div class="dropdown-content">
+                    <a href="shipyard.html">Судостроительный</a>
+                    <a href="mehanik.html">Механик</a>
+                    <a href="accumulator.html">Аккумуляторный</a>
+                    <a href="fanerniy.html">Фанерный</a>
+                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
+                </div>
+            </li>
             <li><a href="heroes.html">Труженики</a></li>
             <li><a href="team.html">Команда</a></li>
             <li><a href="conclusion.html">Заключение</a></li>
@@ -82,9 +102,8 @@
         <h1 class="page-title">Тюменский станкостроительный завод «Механик» № 762</h1>
         
         <div class="factory-sections">
-            <!-- ДОВОЕННЫЙ ПЕРИОД -->
             <div class="section-card">
-                <div class="section-title"> Довоенный период</div>
+                <div class="section-title">Довоенный период</div>
                 <div class="accordion-item"><div class="accordion-header">1899 — основание</div><div class="accordion-content"><div class="accordion-content-inner"><p>Купец А.Г. Закоплян открыл литейную мастерскую. Позже её приобрёл Н.Д. Машаров, учредив товарищество «Машаров и К».</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">К 1901 году</div><div class="accordion-content"><div class="accordion-content-inner"><p>Работали литейный, механический и гвоздёрный цеха. Выпуск: чугунная посуда, печные принадлежности, гвозди, молотилки, веялки.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1908 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Внедрение паровых машин, первый в Тюмени переход на электромеханический привод.</p></div></div></div>
@@ -92,18 +111,16 @@
                 <div class="accordion-item"><div class="accordion-header">1929–1930</div><div class="accordion-content"><div class="accordion-content-inner"><p>Первая партия шпалорезных станков (5 шт.), затем 45 станков за год. В 1930 выпущено 420 станков. Со второй половины 1930 года завод стал станкостроительным.</p></div></div></div>
             </div>
             
-            <!-- ВОЕННЫЙ ПЕРИОД -->
             <div class="section-card">
-                <div class="section-title"> Военный период</div>
+                <div class="section-title">Военный период</div>
                 <div class="accordion-item"><div class="accordion-header">1941 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Перепланировка цеха для стального литья. Изготовлено 4500 корпусов мин и 3000 корпусов артиллерийских снарядов.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1942 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Завод стал военным, название «Завод №762 Наркомата миномётного вооружения».</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1943 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Выпуск первых 2500 мин типа «О1» (химические мины калибра 120 мм для дымовых завес).</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1945 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Изготовление двух фуговальных станков для атомного проекта Курчатова (Лаборатория №2 АН СССР).</p></div></div></div>
             </div>
             
-            <!-- ПОСЛЕВОЕННЫЙ ПЕРИОД -->
             <div class="section-card">
-                <div class="section-title"> Послевоенный период</div>
+                <div class="section-title">Послевоенный период</div>
                 <div class="accordion-item"><div class="accordion-header">1945–1960-е</div><div class="accordion-content"><div class="accordion-content-inner"><p>Возврат к мирному производству станков и лебёдок. 1948 — переход на самоокупаемость. В 1950-е освоены круглопильные и прирезные станки. В 1960-е — выпуск многопильных и торцово-балансирных станков, старт экспорта.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">12 мая 1966</div><div class="accordion-content"><div class="accordion-content-inner"><p>Переименован в Тюменский станкостроительный завод, улица — в улицу Станкостроителей.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1994</div><div class="accordion-content"><div class="accordion-content-inner"><p>Акционирование, ОАО «Тюменский станкостроительный завод».</p></div></div></div>
@@ -112,7 +129,8 @@
     </div>
 </main>
 
-<footer><div class="container"></footer>
+<footer><div class="container">
+</div></footer>
 
 <script>
     document.querySelectorAll('.accordion-header').forEach(header => {

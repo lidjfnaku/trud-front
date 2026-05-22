@@ -6,8 +6,8 @@
     <title>Тюменская область | Труженики тыла</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; flex: 1; }
         
         /* ---------- НОВАЯ ШАПКА (ГОРИЗОНТАЛЬНОЕ МЕНЮ) ---------- */
         .header { background-color: #2f3e2e; padding: 1rem 0; border-bottom: 3px solid #c1a259; position: relative; z-index: 100; }
@@ -19,21 +19,22 @@
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
         
-        @media (min-width: 901px) {
-            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
-            .nav-menu > li:hover .dropdown-content { display: block; }
-            .nav-menu > li::after { content: ''; position: absolute; top: 90%; left: 0; width: 100%; height: 20px; background: transparent; z-index: 1001; }
-            .dropdown-content:hover { display: block; }
-        }
+        /* Мостик-прокладка */
+        .nav-menu > li::after { content: ''; position: absolute; top: 90%; left: 0; width: 100%; height: 20px; background: transparent; z-index: 1001; }
         
-        @media (max-width: 900px) {
-            .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: #2f3e2e; min-width: 200px; border: 1px solid #c1a259; z-index: 1000; }
-            .dropdown-content.show { display: block; }
-        }
+        .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
         .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        /* ------------------------------------------------------ */
         
+        .nav-menu > li:hover .dropdown-content,
+        .dropdown-content:hover { display: block; }
+        
+        @media (max-width: 900px) {
+            .dropdown-content { position: static; display: none; width: 100%; border: none; margin-top: 0.3rem; box-shadow: none; }
+            .dropdown-content.show { display: block; }
+        }
+        
+        /* --- ОСНОВНОЙ КОНТЕНТ --- */
         .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #2c3a2a; font-family: 'Georgia', serif; }
         .section-block { margin: 2rem 0; }
         .section-subtitle { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.2rem; color: #3a4b30; border-bottom: 2px solid #e2d5c0; padding-bottom: 0.4rem; }
@@ -44,16 +45,33 @@
         .accordion-content-inner { padding: 1rem 1.5rem 1.2rem 1.5rem; font-size: 0.95rem; line-height: 1.5; color: #2a2925; }
         .accordion-content-inner ul { margin-left: 1.2rem; margin-bottom: 0.5rem; }
         .accordion-content-inner li { margin-bottom: 0.3rem; }
-        .stats-table { width: 100%; border-collapse: collapse; background: #fffcf5; border: 1px solid #dad0bc; margin: 1.5rem 0; }
-        .stats-table th, .stats-table td { border: 1px solid #dad0bc; padding: 12px 14px; vertical-align: top; text-align: left; }
-        .stats-table th { background-color: #e6dccb; font-weight: 600; color: #2e3b24; width: 35%; }
-        .indicators-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; }
-        .indicator-card { flex: 1; min-width: 180px; background: #f4efe5; border: 1px solid #dad0bc; padding: 1rem; text-align: center; }
-        .indicator-number { font-size: 1.6rem; font-weight: 700; color: #5c431f; }
-        .indicator-label { font-size: 0.85rem; color: #4a4238; margin-top: 5px; }
+        
+        /* ИНТЕРАКТИВНЫЕ КАРТОЧКИ (Ключевые показатели) — ЕДИНЫЙ СТИЛЬ С УРАЛОМ */
+        .indicators-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; justify-content: center; }
+        .indicator-card { flex: 1; min-width: 170px; max-width: 220px; background: #f4efe5; border: 1px solid #dad0bc; padding: 1rem; text-align: center; transition: all 0.2s; position: relative; cursor: help; border-radius: 8px; }
+        .indicator-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: #c1a259; }
+        .indicator-number { font-size: 1.5rem; font-weight: 700; color: #5c431f; }
+        .indicator-label { font-size: 0.8rem; color: #4a4238; margin-top: 8px; line-height: 1.3; }
+        
+        /* Tooltip для карточек */
+        .indicator-card .tooltip-text { visibility: hidden; width: 260px; background-color: #2f3e2e; color: #fef5e6; text-align: center; border-radius: 8px; padding: 12px 17px; position: absolute; z-index: 10; bottom: 120%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.2s; font-size: 1.2rem; font-weight: normal; line-height: 1.4; pointer-events: none; border: 1px solid #c1a259; white-space: normal; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .indicator-card:hover .tooltip-text { visibility: visible; opacity: 1; }
+        
         .awards-block { background: #f4efe5; border: 1px solid #dad0bc; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-        footer { background: #e2dacb; padding: 2rem 0; text-align: center; margin-top: 3rem; }
-        @media (max-width: 780px) { .page-title { font-size: 1.6rem; } .indicators-grid { flex-direction: column; } }
+        footer { background: #e2dacb; padding: 2rem 0; text-align: center; margin-top: auto; }
+        
+        @media (max-width: 780px) {
+            .page-title { font-size: 1.6rem; }
+            .indicators-grid { flex-direction: column; align-items: center; }
+            .indicator-card { width: 100%; max-width: 280px; min-width: auto; }
+            .indicator-card .tooltip-text { width: 240px; font-size: 0.8rem; }
+        }
+        
+        /* УБИРАЕМ ПОДЧЁРКИВАНИЕ У ВСЕХ ССЫЛОК */
+        a, a:hover, a:focus, a:active {
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
     </style>
 </head>
 <body>
@@ -61,15 +79,21 @@
 <header class="header">
     <div class="container header-inner">
         <div class="logo-area">
-            
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">О проекте</a>
+                <div class="dropdown-content">
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
+                </div>
+            </li>
             <li>
                 <a href="#">Статистика</a>
                 <div class="dropdown-content">
-                    <a href="region-ural.html">Урал</a>
                     <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="region-ural.html">Урал</a>
                 </div>
             </li>
             <li>
@@ -163,29 +187,38 @@
 
         <div class="section-block">
             <h2 class="section-subtitle">Ключевые показатели</h2>
-            <table class="stats-table">
-                <tr><th>Рост объёма производства (II пол. 1941 к I пол.)</th><td>+40%</td>
-                <tr><th>Рост к январю 1945 г.</th><td>+102 млн руб. (77,2%)</td>
-                <tr><th>Эвакуировано предприятий</th><td>30</td>
-                <tr><th>Производственные площади</th><td>более 70 000 кв.м</td>
-            </table>
-        </div>
-
-        <div class="section-block">
-            <h2 class="section-subtitle">Интересный факт</h2>
-            <div class="awards-block">
-                <p>Множество переходящих Красных Знамён; ордена и медали для коллективов и отдельных работников.</p>
+            <div class="indicators-grid">
+                <div class="indicator-card">
+                    <div class="indicator-number">+40%</div>
+                    <div class="indicator-label">Рост объёма производства<br>(II пол. 1941 к I пол.)</div>
+                    <div class="tooltip-text">Рост объёма производства во втором полугодии 1941 года по сравнению с первым полугодием составил 40%</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">+102 млн руб.</div>
+                    <div class="indicator-label">Рост к январю 1945 г.</div>
+                    <div class="tooltip-text">Рост выпуска промышленной продукции к январю 1945 года относительно 1942 года составил 102 млн рублей (77,2%)</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">30</div>
+                    <div class="indicator-label">Эвакуировано предприятий</div>
+                    <div class="tooltip-text">В Тюменскую область было эвакуировано 30 промышленных предприятий в течение 1941 года</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">70 000 кв.м</div>
+                    <div class="indicator-label">Производственные площади</div>
+                    <div class="tooltip-text">Приспособлено и построено более 70 000 кв.м производственных площадей для эвакуированных заводов</div>
+                </div>
             </div>
         </div>
     </div>
 </main>
 
 <footer>
-    <div class="container"></div>
+    <div class="container">
+    </div>
 </footer>
 
 <script>
-    // Аккордеон
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const content = this.nextElementSibling;
@@ -197,7 +230,6 @@
         });
     });
     
-    // Меню для телефонов
     if ('ontouchstart' in window || window.innerWidth <= 900) {
         const dropdownTriggers = document.querySelectorAll('.nav-menu > li');
         dropdownTriggers.forEach(trigger => {

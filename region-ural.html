@@ -23,8 +23,20 @@
             margin: 0 auto;
             padding: 0 24px;
         }
+        body {
+             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            }
 
-        /* --- НОВАЯ ШАПКА (ГОРИЗОНТАЛЬНОЕ МЕНЮ С ВЫПАДАЮЩИМИ СПИСКАМИ) --- */
+        .container {
+            flex: 1;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
         .header {
             background-color: #2f3e2e;
             padding: 1rem 0;
@@ -86,17 +98,28 @@
             color: #ffefb9;
         }
 
+        .nav-menu > li::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: transparent;
+            z-index: 1001;
+        }
+
         .dropdown-content {
             display: none;
             position: absolute;
-            top: 100%;
+            top: calc(100% + 5px);
             left: 0;
             background-color: #2f3e2e;
             min-width: 220px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             border: 1px solid #c1a259;
             border-top: none;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .dropdown-content a {
@@ -116,11 +139,11 @@
             color: #ffefb9;
         }
 
-        .nav-menu > li:hover .dropdown-content {
+        .nav-menu > li:hover .dropdown-content,
+        .dropdown-content:hover {
             display: block;
         }
 
-        /* --- ОСНОВНОЙ КОНТЕНТ --- */
         .page-title {
             font-size: 2rem;
             font-weight: 600;
@@ -217,20 +240,33 @@
             width: 40%;
         }
 
+        /* ИНТЕРАКТИВНЫЕ КАРТОЧКИ — УМЕНЬШЕННЫЙ РАЗМЕР (как в Тюмени) */
         .indicators-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1.2rem;
             margin: 1.5rem 0;
+            justify-content: center;
         }
 
         .indicator-card {
             flex: 1;
             min-width: 170px;
+            max-width: 220px;
             background: #f4efe5;
             border: 1px solid #dad0bc;
             padding: 1rem;
             text-align: center;
+            transition: all 0.2s;
+            position: relative;
+            cursor: help;
+            border-radius: 8px;
+        }
+
+        .indicator-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #c1a259;
         }
 
         .indicator-number {
@@ -242,17 +278,47 @@
         .indicator-label {
             font-size: 0.8rem;
             color: #4a4238;
-            margin-top: 5px;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+
+        /* Tooltip для карточек — поменьше */
+        .indicator-card .tooltip-text {
+            visibility: hidden;
+            width: 260px;
+            background-color: #2f3e2e;
+            color: #fef5e6;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 17px;
+            position: absolute;
+            z-index: 10;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 1.2rem;
+            font-weight: normal;
+            line-height: 1.4;
+            pointer-events: none;
+            border: 1px solid #c1a259;
+            white-space: normal;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .indicator-card:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
 
         footer {
             background: #e2dacb;
             padding: 2rem 0;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: auto;
         }
 
-        /* --- АДАПТИВНОСТЬ --- */
         @media (max-width: 900px) {
             .header-inner {
                 flex-direction: column;
@@ -281,6 +347,11 @@
                 padding-left: 1.5rem;
                 font-size: 0.8rem;
             }
+            .indicator-card .tooltip-text {
+                width: 220px;
+                font-size: 0.75rem;
+                bottom: 110%;
+            }
         }
 
         @media (max-width: 780px) {
@@ -289,6 +360,12 @@
             }
             .indicators-grid {
                 flex-direction: column;
+                align-items: center;
+            }
+            .indicator-card {
+                width: 100%;
+                max-width: 280px;
+                min-width: auto;
             }
         }
     </style>
@@ -301,13 +378,19 @@
             
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">О проекте</a>
+                <div class="dropdown-content">
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
+                </div>
+            </li>
             <li>
                 <a href="#">Статистика</a>
                 <div class="dropdown-content">
-                    <a href="region-ural.html">Урал</a>
-                   
                     <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="region-ural.html">Урал</a>
                 </div>
             </li>
             <li>
@@ -332,7 +415,7 @@
     <div class="container">
         <h1 class="page-title">Статистика предприятий на Урале</h1>
 
-        <!-- Крупнейшие предприятия (обновлённый список) -->
+        <!-- Крупнейшие предприятия -->
         <div class="section-block">
             <h2 class="section-subtitle">Крупнейшие предприятия</h2>
             <div class="accordion">
@@ -419,27 +502,34 @@
             </div>
         </div>
 
-        <!-- Ключевые показатели (таблица) -->
         <div class="section-block">
             <h2 class="section-subtitle">Ключевые показатели</h2>
-            <table class="stats-table">
-                <tr><th>Доля в общесоюзном военном производстве</th><td>до 40%</td>
-                <tr><th>Рост выпуска промышленной продукции</th><td>в 3,6 раза</td>
-                <tr><th>Рост оборонной промышленности</th><td>в 6 раз</td>
-                <tr><th>Металлургия</th><td>2/3 металлов в СССР</td>
-                <tr><th>Добыча угля</th><td>рост в 22 раза</td>
-                <tr><th>Машиностроение</th><td>более 1/3 предприятий отрасли</td>
-            </table>
-        </div>
-
-        <!-- Основные цифры (карточки) -->
-        <div class="section-block">
-            <h2 class="section-subtitle">Основные цифры</h2>
             <div class="indicators-grid">
-                <div class="indicator-card"><div class="indicator-number">40%</div><div class="indicator-label">доля в военном производстве</div></div>
-                <div class="indicator-card"><div class="indicator-number">3,6</div><div class="indicator-label">рост промпроизводства</div></div>
-                <div class="indicator-card"><div class="indicator-number">2/3</div><div class="indicator-label">металла в СССР</div></div>
-                <div class="indicator-card"><div class="indicator-number">22</div><div class="indicator-label">рост добычи угля (раз)</div></div>
+                <div class="indicator-card">
+                    <div class="indicator-number">40%</div>
+                    <div class="indicator-label">доля в военном производстве</div>
+                    <div class="tooltip-text">Доля Урала в общесоюзном военном производстве составляла до 40%</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">3,6</div>
+                    <div class="indicator-label">рост промпроизводства</div>
+                    <div class="tooltip-text">Рост выпуска промышленной продукции на Урале — в 3,6 раза относительно довоенного уровня</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">2/3</div>
+                    <div class="indicator-label">металла в СССР</div>
+                    <div class="tooltip-text">Урал давал 2/3 общего производства чёрных и цветных металлов в СССР</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">22</div>
+                    <div class="indicator-label">рост добычи угля (раз)</div>
+                    <div class="tooltip-text">Добыча угля на Урале выросла в 22 раза за годы войны</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-number">1/3</div>
+                    <div class="indicator-label">предприятий машиностроения</div>
+                    <div class="tooltip-text">Более 1/3 предприятий машиностроения и металлообработки страны было сосредоточено на Урале</div>
+                </div>
             </div>
         </div>
     </div>
@@ -464,7 +554,7 @@
     });
 
     // Для сенсорных экранов: раскрытие dropdown по клику
-    if ('ontouchstart' in window) {
+    if ('ontouchstart' in window || window.innerWidth <= 900) {
         const dropdownParents = document.querySelectorAll('.nav-menu > li');
         dropdownParents.forEach(parent => {
             const link = parent.querySelector('a');

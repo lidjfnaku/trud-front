@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Библиография | Труженики тыла</title>
     <style>
-        /* --- ОБЩИЕ СТИЛИ (СОВПАДАЮТ С ДРУГИМИ СТРАНИЦАМИ) --- */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +27,6 @@
             padding: 0 24px;
         }
 
-        /* --- НОВАЯ ШАПКА (HORIZONTAL NAVIGATION WITH DROPDOWNS) --- */
         .header {
             background-color: #2f3e2e;
             padding: 1rem 0;
@@ -58,7 +56,6 @@
             font-style: italic;
         }
 
-        /* Основная навигация */
         .nav-menu {
             display: flex;
             gap: 1.2rem;
@@ -87,7 +84,6 @@
             color: #ffefb9;
         }
 
-        /* Выпадающие списки */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -121,7 +117,6 @@
             display: block;
         }
 
-        /* --- ОСНОВНОЙ КОНТЕНТ (БИБЛИОГРАФИЯ) --- */
         .page-title {
             font-size: 2rem;
             font-weight: 600;
@@ -153,16 +148,14 @@
         .bibliography-list a {
             color: #6b5a3e;
             text-decoration: none;
-            border-bottom: 1px dotted #c1a259;
+            border-bottom: none;
             word-break: break-all;
         }
 
         .bibliography-list a:hover {
             color: #2f3e2e;
-            border-bottom: 1px solid #2f3e2e;
         }
 
-        /* --- ФУТЕР --- */
         footer {
             background: #e2dacb;
             padding: 1.5rem 0;
@@ -175,7 +168,6 @@
             color: #3e3a31;
         }
 
-        /* --- АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ --- */
         @media (max-width: 900px) {
             .header-inner {
                 flex-direction: column;
@@ -195,7 +187,6 @@
                 border: none;
                 margin-top: 0.5rem;
             }
-            /* Для тач-устройств выпадающий список будет раскрываться по клику, а не по ховеру */
             .nav-menu > li {
                 position: relative;
             }
@@ -204,19 +195,19 @@
             }
         }
         /* Блок с авторскими правами */
-.copyright-note {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e2d7c8;
-    text-align: center;
-}
+        .copyright-note {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2d7c8;
+            text-align: center;
+        }
 
-.copyright-note p {
-    font-size: 0.8rem;
-    color: #6b5a44;
-    line-height: 1.4;
-    margin-bottom: 0.3rem;
-}
+        .copyright-note p {
+            font-size: 1rem;
+            color: #6b5a44;
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+        }
     </style>
 </head>
 <body>
@@ -226,12 +217,19 @@
         <div class="logo-area">
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
+            <li>
+                <a href="#">О проекте</a>
+                <div class="dropdown-content">
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
+                </div>
+            </li>
             <li>
                 <a href="#">Статистика</a>
                 <div class="dropdown-content">
+                     <a href="region-tyumen.html">Тюменская область</a>
                     <a href="region-ural.html">Урал</a>
-                    <a href="region-tyumen.html">Тюменская область</a>
                 </div>
             </li>
             <li>
@@ -289,9 +287,7 @@
     </div>
 </footer>
 
-<!-- Небольшой скрипт для корректной работы dropdown на тач-устройствах -->
 <script>
-    // Если устройство сенсорное — раскрываем выпадающие списки по клику
     if ('ontouchstart' in window) {
         const dropdownParents = document.querySelectorAll('.nav-menu > li');
         dropdownParents.forEach(parent => {

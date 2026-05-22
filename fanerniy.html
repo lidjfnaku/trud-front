@@ -11,76 +11,25 @@
         .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: -1; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; flex: 1; }
         
-        /* ШАПКА С ДВОЙНЫМ МОСТИКОМ */
         .header { background-color: rgba(30, 35, 25, 0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 100; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo-area h1 { font-size: 1.5rem; font-weight: 600; font-family: 'Georgia', serif; color: #f3efde; }
         .logo-area p { font-size: 0.8rem; color: #e6dbba; font-style: italic; }
         .nav-menu { display: flex; gap: 1.2rem; list-style: none; flex-wrap: wrap; margin: 0; padding: 0; }
-        .nav-menu > li { position: static; } /* меняем на static для большей свободы */
-        @media (min-width: 901px) {
-            .nav-menu > li { position: relative; }
-        }
+        .nav-menu > li { position: relative; }
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
         
-        /* ОСНОВНОЕ МЕНЮ — ТОЛЬКО ДЛЯ ЭКРАНОВ ШИРЕ 900px */
-        @media (min-width: 901px) {
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: #2f3e2e;
-                min-width: 220px;
-                border: 1px solid #c1a259;
-                border-top: none;
-                z-index: 1000;
-            }
-            .nav-menu > li:hover .dropdown-content {
-                display: block;
-            }
-            /* Добавляем невидимую прокладку */
-            .nav-menu > li::after {
-                content: '';
-                position: absolute;
-                top: 90%;
-                left: 0;
-                width: 100%;
-                height: 20px;
-                background: transparent;
-                z-index: 1001;
-            }
-            .dropdown-content:hover {
-                display: block;
-            }
-        }
+        .nav-menu > li::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 15px; background: transparent; z-index: 1001; }
         
-        /* ДЛЯ ТЕЛЕФОНОВ — МЕНЮ РАБОТАЕТ ПО КЛИКУ */
-        @media (max-width: 900px) {
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: #2f3e2e;
-                min-width: 200px;
-                border: 1px solid #c1a259;
-                z-index: 1000;
-            }
-            .dropdown-content.show {
-                display: block;
-            }
-            .nav-menu > li {
-                position: relative;
-            }
-        }
-        
+        .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
         .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
         
+        .nav-menu > li:hover .dropdown-content,
+        .dropdown-content:hover { display: block; }
+        
         .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #f3de8a; font-family: 'Georgia', serif; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-        .subtitle { margin-bottom: 1.5rem; font-size: 1rem; color: #e6dbba; padding-left: 1rem; }
         
         .factory-sections { display: flex; flex-wrap: wrap; gap: 2rem; margin: 8rem 0 2rem 0; }
         .section-card { flex: 1; min-width: 280px; background: rgba(25, 30, 22, 0.7); backdrop-filter: blur(6px); border: 1px solid rgba(200, 185, 130, 0.5); border-radius: 12px; padding: 1.2rem; }
@@ -96,6 +45,9 @@
         .stat-number { font-weight: 700; color: #f3de8a; }
         
         footer { background: rgba(30, 35, 25, 0.85); backdrop-filter: blur(4px); padding: 1.5rem 0; text-align: center; margin-top: auto; border-top: 1px solid #c1a259; }
+        
+        a, a:hover, a:focus, a:active { text-decoration: none !important; border-bottom: none !important; }
+        
         @media (max-width: 780px) { .factory-sections { flex-direction: column; } .nav-menu { gap: 0.8rem; } }
     </style>
 </head>
@@ -104,11 +56,32 @@
 
 <header class="header">
     <div class="container header-inner">
-        <div class="logo-area"></div>
+        <div class="logo-area">
+        </div>
         <ul class="nav-menu">
-            <li><a href="index.html">О проекте</a></li>
-            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-ural.html">Урал</a><a href="region-tyumen.html">Тюменская область</a></div></li>
-            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
+            <li>
+                <a href="#">О проекте</a>
+                <div class="dropdown-content">
+                    <a href="index.html#intro">Введение</a>
+                    <a href="index.html#goals">Цели и задачи</a>
+                    <a href="index.html#regions">Регионы</a>
+                </div>
+            </li>
+            <li><a href="#">Статистика</a>
+                <div class="dropdown-content">
+                    <a href="region-tyumen.html">Тюменская область</a>
+                    <a href="region-ural.html">Урал</a>
+                </div>
+            </li>
+            <li><a href="#">Предприятия</a>
+                <div class="dropdown-content">
+                    <a href="shipyard.html">Судостроительный</a>
+                    <a href="mehanik.html">Механик</a>
+                    <a href="accumulator.html">Аккумуляторный</a>
+                    <a href="fanerniy.html">Фанерный</a>
+                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
+                </div>
+            </li>
             <li><a href="heroes.html">Труженики</a></li>
             <li><a href="team.html">Команда</a></li>
             <li><a href="conclusion.html">Заключение</a></li>
@@ -123,7 +96,7 @@
         
         <div class="factory-sections">
             <div class="section-card">
-                <div class="section-title"> Довоенный период</div>
+                <div class="section-title">Довоенный период</div>
                 <div class="accordion-item"><div class="accordion-header">Спичечная фабрика</div><div class="accordion-content"><div class="accordion-content-inner"><p>В конце XIX века купец Василий Логинов основал Тюменскую спичечную фабрику. В 1898 году объединил предприятие с производством конкурента Ворожцова, образовав «Акционерное общество спичечных фабрик Ворожцова и Логинова».</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1907 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Предприятие возглавил сын Степан, изобрёл и запатентовал сушильный аппарат для спичечной соломки «Россия».</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1912 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Для расширения построен большой корпус. Предприятие становится одним из крупнейших производителей спичек и фанеры на Урале и в Сибири.</p></div></div></div>
@@ -131,7 +104,7 @@
             </div>
             
             <div class="section-card">
-                <div class="section-title"> Военный период</div>
+                <div class="section-title">Военный период</div>
                 <div class="accordion-item"><div class="accordion-header">Перестройка производства</div><div class="accordion-content"><div class="accordion-content-inner"><p>С первых дней войны комбинат резко увеличил объёмы производства и переоборудовал цеха под выпуск оборонной продукции.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">Освоенная продукция</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>дельта-древесина</li><li>авиафанера</li></ul></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">Номенклатура военной продукции</div><div class="accordion-content"><div class="accordion-content-inner"><ul><li>корпуса мин ЯМ-5</li><li>авиационный шпон</li><li>аккумуляторный шпон</li><li>спецпродукция №1 и №5</li><li>фанерная подошва</li><li>фанера МПШ</li><li>погонялки</li></ul></div></div></div>
@@ -141,7 +114,7 @@
             </div>
             
             <div class="section-card">
-                <div class="section-title"> Послевоенный период</div>
+                <div class="section-title">Послевоенный период</div>
                 <div class="accordion-item"><div class="accordion-header">Рост производства</div><div class="accordion-content"><div class="accordion-content-inner"><p>Заказы на продукцию идут со всех уголков страны, их количество постоянно растёт.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">1973 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Начало <span class="stat-number">экспорта в США и страны Европы</span>.</p></div></div></div>
                 <div class="accordion-item"><div class="accordion-header">2008 год</div><div class="accordion-content"><div class="accordion-content-inner"><p>Построен новый завод с современным оборудованием.</p></div></div></div>
@@ -151,10 +124,12 @@
     </div>
 </main>
 
-<footer></footer>
+<footer>
+    <div class="container">
+    </div>
+</footer>
 
 <script>
-    // АККОРДЕОН
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const content = this.nextElementSibling;
@@ -169,7 +144,6 @@
         });
     });
     
-    // МЕНЮ ДЛЯ ТЕЛЕФОНОВ (ПО КЛИКУ)
     if ('ontouchstart' in window || window.innerWidth <= 900) {
         const dropdownTriggers = document.querySelectorAll('.nav-menu > li');
         dropdownTriggers.forEach(trigger => {
@@ -178,13 +152,11 @@
             if (dropdown) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Закрываем все другие
                     document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
                     dropdown.classList.add('show');
                 });
             }
         });
-        // Закрытие при клике вне меню
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.nav-menu')) {
                 document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
