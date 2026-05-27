@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #fefaf5; color: #2c2b28; line-height: 1.45; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; flex: 1; }
         
         .header { background-color: #2f3e2e; padding: 1rem 0; border-bottom: 3px solid #c1a259; position: relative; z-index: 100; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -28,25 +28,67 @@
         .dropdown-content:hover { display: block; }
         
         .page-title { font-size: 2rem; font-weight: 600; margin: 2rem 0 1rem; padding-left: 1rem; color: #2c3a2a; font-family: 'Georgia', serif; }
-        .subtitle { margin-bottom: 2rem; font-size: 1rem; color: #4a4238; padding-left: 1rem; }
-        .team-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 2rem 0 3rem; }
-        .team-card { flex: 1; min-width: 260px; max-width: 300px; background: #fffcf5; border: 1px solid #dad0bc; padding: 1.5rem; text-align: center; transition: all 0.2s; }
+        
+        /* 4 карточки в ряд */
+        .team-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 2rem; 
+            justify-content: center; 
+            margin: 2rem 0 3rem; 
+        }
+        .team-card { 
+            flex: 1 1 240px;
+            min-width: 300px;
+            max-width: 350px;
+            background: #fffcf5; 
+            border: 1px solid #dad0bc; 
+            padding: 1.5rem; 
+            text-align: center; 
+            transition: all 0.2s; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .team-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #c1a259; }
-        .team-photo { width: 220px; height: 220px; margin: 0 auto 1rem auto; border: 2px solid #e2d5c0; background-color: #e8e0d0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .team-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .photo-upload-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; background-color: #e6dccb; transition: 0.2s; }
-        .photo-upload-area:hover { background-color: #d9ceb8; }
-        .photo-upload-area span:first-child { font-size: 2rem; }
-        .photo-upload-area span:last-child { font-size: 0.7rem; color: #6b5a44; }
-        .team-name { font-size: 1.1rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; margin-bottom: 0.3rem; }
-        .team-role { font-size: 0.85rem; color: #8b6b3d; font-weight: 500; margin-bottom: 0.5rem; }
-        .upload-input { display: none; }
+        
+        /* Фотографии увеличенного размера */
+        .team-photo { 
+            width: 260px; 
+            height: 260px; 
+            margin: 0 auto 1rem auto; 
+            border: 2px solid #e2d5c0; 
+            background-color: #e8e0d0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+        }
+        .team-photo img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        
+        .team-name { font-size: 1.1rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; margin-bottom: 0.5rem; }
+        .team-role { font-size: 0.85rem; color: #8b6b3d; font-weight: 500; line-height: 1.4; }
+        
         footer { background: #e2dacb; padding: 2rem 0; text-align: center; margin-top: auto; }
         
+        @media (max-width: 1100px) {
+            .team-photo { width: 220px; height: 220px; }
+        }
+        
+        @media (max-width: 900px) {
+            .team-grid { gap: 1.5rem; }
+            .team-photo { width: 180px; height: 180px; }
+        }
+        
         @media (max-width: 780px) { 
-            .page-title { font-size: 1.6rem; } 
-            .team-card { min-width: 220px; } 
-            .team-photo { width: 150px; height: 150px; } 
+            .page-title { font-size: 1.6rem; }
+            .team-grid { flex-direction: column; align-items: center; }
+            .team-card { max-width: 320px; width: 100%; }
+            .team-photo { width: 240px; height: 240px; }
         }
         
         a, a:hover, a:focus, a:active {
@@ -99,65 +141,51 @@
     <div class="container">
         <h1 class="page-title">Команда проекта</h1>
         <div class="team-grid">
+            <!-- Хомутовский -->
             <div class="team-card">
-                <div class="team-photo" id="photo1">
+                <div class="team-photo">
                     <img src="первый.jpg" alt="Хомутовский Роман">
                 </div>
                 <div class="team-name">Хомутовский Роман Вячеславович</div>
-                <div class="team-role">Аналитик информационных ресурсов – <div>Школа права и управления ТюмГУ</div></div>
+                <div class="team-role">Аналитик информационных ресурсов – Школа права и управления ТюмГУ</div>
             </div>
 
+            <!-- Хуснуллин -->
             <div class="team-card">
-                <div class="team-photo" id="photo2">
+                <div class="team-photo">
                     <img src="второй.jpg" alt="Хуснуллин Артем">
                 </div>
                 <div class="team-name">Хуснуллин Артем Мурадович</div>
-                <div class="team-role">Аналитик качества информационных ресурсов - <div>Институт социально-гуманитарных наук ТюмГУ</div></div>
+                <div class="team-role">Аналитик качества информационных ресурсов – Институт социально-гуманитарных наук ТюмГУ</div>
             </div>
 
+            <!-- Девяткова -->
             <div class="team-card">
-                <div class="team-photo" id="photo3">
+                <div class="team-photo">
                     <img src="третий.jpg" alt="Девяткова Арина">
                 </div>
                 <div class="team-name">Девяткова Арина Григорьевна</div>
-                <div class="team-role">Дизайнер пользовательского интерфейса проекта – <div>Школа естественных наук ТюмГУ</div></div>
+                <div class="team-role">Дизайнер пользовательского интерфейса проекта – Школа естественных наук ТюмГУ</div>
             </div>
 
+            <!-- Сурцев -->
             <div class="team-card">
-                <div class="team-photo" id="photo4">
-                    <div class="photo-upload-area" id="uploadArea">
-                        <span></span>
-                        <span>Загрузить фото</span>
-                    </div>
+                <div class="team-photo">
+                    <img src="никита.jpg" alt="Сурцев Никита">
                 </div>
                 <div class="team-name">Сурцев Никита Алексеевич</div>
-                <div class="team-role">Веб-разработчик проекта – <div>Школа права и управления ТюмГУ</div></div>
-                <input type="file" id="uploadInput" class="upload-input" accept="image/jpeg,image/png,image/jpg">
+                <div class="team-role">Веб-разработчик проекта – Школа права и управления ТюмГУ</div>
             </div>
         </div>
     </div>
 </main>
 
-<footer><div class="container"></div></footer>
+<footer>
+    <div class="container">
+    </div>
+</footer>
 
 <script>
-    const uploadArea = document.getElementById('uploadArea'), uploadInput = document.getElementById('uploadInput'), photo4Container = document.getElementById('photo4');
-    if (uploadArea && uploadInput && photo4Container) {
-        uploadArea.addEventListener('click', () => uploadInput.click());
-        uploadInput.addEventListener('change', (event) => { 
-            const file = event.target.files[0]; 
-            if (file && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg')) { 
-                const reader = new FileReader(); 
-                reader.onload = (e) => { 
-                    photo4Container.innerHTML = `<img src="${e.target.result}" alt="Сурцев Никита">`; 
-                }; 
-                reader.readAsDataURL(file); 
-            } else { 
-                alert('Выберите файл в формате JPEG или PNG'); 
-            } 
-        });
-    }
-
     if ('ontouchstart' in window || window.innerWidth <= 900) {
         const dropdownParents = document.querySelectorAll('.nav-menu > li');
         dropdownParents.forEach(parent => {

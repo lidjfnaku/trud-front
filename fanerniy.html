@@ -7,8 +7,10 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', 'Roboto', 'Georgia', Times New Roman, serif; background-color: #1a1a1a; color: #f0ede8; line-height: 1.45; display: flex; flex-direction: column; min-height: 100vh; }
-        .hero-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('фанера.webp'); background-size: cover; background-position: center; z-index: -2; }
-        .hero-overlay::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: -1; }
+        .bg-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
+        .bg-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease-in-out; }
+        .bg-slide.active { opacity: 1; }
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: -1; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; flex: 1; }
         
         .header { background-color: rgba(30, 35, 25, 0.92); backdrop-filter: blur(4px); padding: 1rem 0; border-bottom: 2px solid #c1a259; position: relative; z-index: 100; }
@@ -19,13 +21,10 @@
         .nav-menu > li { position: relative; }
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
-        
         .nav-menu > li::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 15px; background: transparent; z-index: 1001; }
-        
         .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
         .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        
         .nav-menu > li:hover .dropdown-content,
         .dropdown-content:hover { display: block; }
         
@@ -52,36 +51,21 @@
     </style>
 </head>
 <body>
-<div class="hero-overlay"></div>
+<div class="bg-slider">
+    <div class="bg-slide active" style="background-image: url('фанера.webp');"></div>
+    <div class="bg-slide" style="background-image: url('Ф1.jpg');"></div>
+    <div class="bg-slide" style="background-image: url('Ф2.jpg');"></div>
+    <div class="bg-overlay"></div>
+</div>
 
 <header class="header">
     <div class="container header-inner">
         <div class="logo-area">
         </div>
         <ul class="nav-menu">
-            <li>
-                <a href="#">О проекте</a>
-                <div class="dropdown-content">
-                    <a href="index.html#intro">Введение</a>
-                    <a href="index.html#goals">Цели и задачи</a>
-                    <a href="index.html#regions">Регионы</a>
-                </div>
-            </li>
-            <li><a href="#">Статистика</a>
-                <div class="dropdown-content">
-                    <a href="region-tyumen.html">Тюменская область</a>
-                    <a href="region-ural.html">Урал</a>
-                </div>
-            </li>
-            <li><a href="#">Предприятия</a>
-                <div class="dropdown-content">
-                    <a href="shipyard.html">Судостроительный</a>
-                    <a href="mehanik.html">Механик</a>
-                    <a href="accumulator.html">Аккумуляторный</a>
-                    <a href="fanerniy.html">Фанерный</a>
-                    <a href="krasny_oktyabr.html">Красный Октябрь</a>
-                </div>
-            </li>
+            <li><a href="index.html">О проекте</a></li>
+            <li><a href="#">Статистика</a><div class="dropdown-content"><a href="region-tyumen.html">Тюменская область</a><a href="region-ural.html">Урал</a></div></li>
+            <li><a href="#">Предприятия</a><div class="dropdown-content"><a href="shipyard.html">Судостроительный</a><a href="mehanik.html">Механик</a><a href="accumulator.html">Аккумуляторный</a><a href="fanerniy.html">Фанерный</a><a href="krasny_oktyabr.html">Красный Октябрь</a></div></li>
             <li><a href="heroes.html">Труженики</a></li>
             <li><a href="team.html">Команда</a></li>
             <li><a href="conclusion.html">Заключение</a></li>
@@ -124,23 +108,23 @@
     </div>
 </main>
 
-<footer>
-    <div class="container">
-    </div>
-</footer>
+<footer><div class="container">
+
+</div></footer>
 
 <script>
+    let bgIndex = 0;
+    const bgSlides = document.querySelectorAll('.bg-slide');
+    function nextBgSlide() { if (!bgSlides.length) return; bgSlides[bgIndex].classList.remove('active'); bgIndex = (bgIndex + 1) % bgSlides.length; bgSlides[bgIndex].classList.add('active'); }
+    if (bgSlides.length > 1) setInterval(nextBgSlide, 8000);
+    
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', function() {
             const content = this.nextElementSibling;
             const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
             const parentCard = this.closest('.section-card');
-            if (parentCard) {
-                parentCard.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-            }
-            if (!isOpen) {
-                content.style.maxHeight = content.scrollHeight + 'px';
-            }
+            if (parentCard) parentCard.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            if (!isOpen) content.style.maxHeight = content.scrollHeight + 'px';
         });
     });
     
@@ -158,9 +142,7 @@
             }
         });
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-menu')) {
-                document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
-            }
+            if (!e.target.closest('.nav-menu')) document.querySelectorAll('.dropdown-content').forEach(dd => dd.classList.remove('show'));
         });
     }
 </script>

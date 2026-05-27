@@ -17,21 +17,112 @@
         .nav-menu > li { position: relative; }
         .nav-menu > li > a { display: block; color: #fef5e6; text-decoration: none; padding: 0.5rem 0.2rem; font-weight: 500; font-size: 1rem; border-bottom: 2px solid transparent; transition: 0.2s; }
         .nav-menu > li > a:hover, .nav-menu > li:hover > a { border-bottom-color: #e6c87a; color: #ffefb9; }
-        
         .nav-menu > li::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 15px; background: transparent; z-index: 1001; }
-        
         .dropdown-content { display: none; position: absolute; top: calc(100% + 5px); left: 0; background-color: #2f3e2e; min-width: 220px; border: 1px solid #c1a259; border-top: none; z-index: 1000; }
         .dropdown-content a { color: #fef5e6; padding: 10px 16px; display: block; border-bottom: 1px solid #4a5a3e; white-space: nowrap; transition: 0.2s; }
         .dropdown-content a:hover { background-color: #4a5a3e; color: #ffefb9; }
-        
         .nav-menu > li:hover .dropdown-content,
         .dropdown-content:hover { display: block; }
         
-        .hero-full-image { width: 100%; height: 90vh; min-height: 500px; background-size: cover; background-position: center 40%; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background-image: url('тыл.jpg'); }
-        .hero-full-image::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20,20,15,0.45); z-index: 1; }
-        .hero-text { position: relative; z-index: 2; color: white; max-width: 900px; padding: 1.5rem; }
-        .hero-text .main-quote { font-size: 2.6rem; font-weight: 800; font-family: 'Georgia', serif; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); margin-bottom: 1rem; }
-        .hero-text .title { font-size: 1.9rem; border-top: 2px solid rgba(255,215,140,0.9); display: inline-block; padding-top: 0.8rem; font-weight: 500; letter-spacing: 1px; }
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            min-height: 500px;
+            overflow: hidden;
+        }
+        .slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center 40%;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20,20,15,0.45);
+            z-index: 1;
+        }
+        .hero-text {
+            position: absolute;
+            z-index: 2;
+            color: white;
+            max-width: 900px;
+            padding: 1.5rem;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+        .hero-text .main-quote { 
+            font-size: 2.6rem; 
+            font-weight: 800; 
+            font-family: 'Georgia', serif; 
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6); 
+            margin-bottom: 1rem; 
+        }
+        .hero-text .title { 
+            font-size: 1.9rem; 
+            border-top: 2px solid rgba(255,215,140,0.9); 
+            display: inline-block; 
+            padding-top: 0.8rem; 
+            font-weight: 500; 
+            letter-spacing: 1px; 
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            z-index: 10;
+            transition: 0.2s;
+            border-radius: 4px;
+        }
+        .slider-btn:hover { background: rgba(0,0,0,0.8); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dot.active { background: #f3de8a; transform: scale(1.2); }
         
         .intro-block { background: #fffbf2; padding: 2rem; margin: 3rem 0 2rem; border: 1px solid #e2d7c8; scroll-margin-top: 100px; }
         .war-text { font-size: 1.05rem; line-height: 1.5; color: #2a2925; }
@@ -54,10 +145,41 @@
         .region-header { background-color: #e6dccb; padding: 0.8rem; text-align: center; border-bottom: 1px solid #cabf9e; }
         .region-header h3 { font-size: 1.4rem; font-weight: 700; color: #3a4b30; font-family: 'Georgia', serif; margin: 0; }
         .region-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
-        
         .final-text { margin: 2rem 0; padding: 1rem; background: #f6f2e8; font-size: 1rem; line-height: 1.5; color: #2a2925; clear: both; }
         
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #3a4c34;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+        }
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-top:hover {
+            background-color: #2b3925;
+            transform: translateY(-3px);
+        }
+        
         footer { background: #e2dacb; padding: 1.5rem 0; text-align: center; margin-top: 2rem; }
+        
+        a, a:hover, a:focus, a:active { text-decoration: none !important; border-bottom: none !important; }
         
         @media (max-width: 780px) {
             .hero-text .main-quote { font-size: 1.8rem; }
@@ -65,11 +187,8 @@
             .goals-wrapper { flex-direction: column; }
             .region-card { min-width: 260px; max-width: 90%; }
             .regions-grid { flex-direction: column; align-items: center; }
-        }
-        
-        a, a:hover, a:focus, a:active {
-            text-decoration: none !important;
-            border-bottom: none !important;
+            .slider-btn { font-size: 1.5rem; padding: 0.3rem 0.7rem; }
+            .scroll-top { width: 40px; height: 40px; font-size: 22px; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -113,16 +232,30 @@
     </div>
 </header>
 
-<div id="intro" class="hero-full-image">
+<div class="hero-slider">
+    <div class="slides">
+        <div class="slide active" style="background-image: url('тыл.jpg');"></div>
+        <div class="slide" style="background-image: url('Г1.jpg');"></div>
+        <div class="slide" style="background-image: url('Г2.jpg');"></div>
+    </div>
     <div class="hero-text">
         <div class="main-quote">«Труженики тыла: вклад в Победу»</div>
         <div class="title">«Всё для фронта! Всё для победы!»</div>
     </div>
+    <button class="slider-btn prev-btn">❮</button>
+    <button class="slider-btn next-btn">❯</button>
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
 </div>
+
+<button class="scroll-top" id="scrollTopBtn" aria-label="Наверх">↑</button>
 
 <main>
     <div class="container">
-        <div class="intro-block">
+        <div id="intro" class="intro-block">
             <div class="war-text">
                 <p>Великая Отечественная война 1941–1945 годов стала тяжелейшим испытанием для всего советского народа. Победа ковалась не только на фронте, но и в тылу: миллионы людей, в том числе женщины, подростки и старики, самоотверженно трудились на заводах, фабриках и в колхозах, обеспечивая армию всем необходимым.</p>
                 <p>Тюменская область в годы войны стала важным тыловым регионом. Сюда были эвакуированы десятки предприятий из западных областей СССР, здесь наращивали выпуск продукции местные заводы. Люди работали по 12–14 часов в сутки, часто в тяжелейших условиях, без выходных, отдавая все силы ради общей Победы.</p>
@@ -199,6 +332,59 @@
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
+    });
+    
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    function showSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+    }
+    
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+    
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => showSlide(index));
+    });
+    
+    let autoSlide = setInterval(nextSlide, 5000);
+    const slider = document.querySelector('.hero-slider');
+    if (slider) {
+        slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        slider.addEventListener('mouseleave', () => {
+            autoSlide = setInterval(nextSlide, 5000);
+        });
+    }
+    
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    });
+    
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
     if ('ontouchstart' in window || window.innerWidth <= 900) {
